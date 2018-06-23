@@ -1,6 +1,7 @@
 from django.db import models
-
+from onboarding.models import DpyUsers
 # Create your models here.
+
 class DpyStudents(models.Model):
     first_name = models.CharField(max_length=20)
     middle_name = models.CharField(max_length=20)
@@ -22,7 +23,11 @@ class DpyStudents(models.Model):
     gender = models.CharField(max_length=20)
     student_type = models.CharField(max_length=20)
     mobile = models.CharField(max_length=12)
-
+    student_class = models.CharField(max_length=20)
+    section = models.CharField(max_length=20)
+    # user_id = models.ForeignKey(DpyUsers, on_delete=models.CASCADE, null=True)
     class Meta:
-        managed = False
         db_table = 'dpy_students'
+        verbose_name = "Students"
+    def __str__(self):
+        return self.first_name

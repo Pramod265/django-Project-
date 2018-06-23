@@ -28,12 +28,105 @@
 
 <!-- Page Content Goes Here-->
 <div class="content mt-3">
-  <h3>Search Colleges Enter Pincode:</h3>
-    <!-- <input type="number" id="pincode" name="findCollge" style="width: 200px; margin: 10px"><input type="button" name="find" class="find" value="Find">
-     -->  <div class="table">
+<!-- ####################################################
+          #####     Progress bar ##############################
+          ##################################################### -->
+          <style type="text/css">
+            div#status {
+                  margin: 2%;
+              }
+              #myBar {
+                  width: 1%;
+                  height: 10px;
+                  background-color: #6666ff
+;
+                  border-radius: 118px;
+              }
+              #myProgress {
+                width: 100%;
+                background-color: #d5daf7;
+                border-radius: 118px;
+                padding: 4px;
+            }
+          </style>
+          <div id="status" style="margin-top: -20px; width:950px;">
+              <h6> Profile Updated
+                <span id="value"> {{count}}</span> %</h6>
+                <div id="myProgress">
+                        <div id="myBar"></div>
+                </div>
+          </div>
+
+          {% if count <= 95 %}
+
+                <!-- <span class="input">{{ value }}</span> -->
+                <div class="overlay" style="width: 250px;height: 200px;float: bottom;">
+                        <div class="close">x</div><a href="{% url 'dashboard:profile' %}" style="height: 100%;width: 100%; display: block; color: black">Your profile is incomplete please fill it.</a></div>
+                        <style type="text/css">
+                          .overlay {
+                        background: #ff3232;
+                        padding: 13px;
+                        color:white;
+                        position: relative;
+                        box-shadow: 1px 12px 43px -5px black;
+                        opacity: 0.48;
+                        border-radius: 9px;    
+                        margin: -41% 3% 3% 3%;
+                        transition: margin 2s ease;
+                        animation: animate 0.8s forwards;
+                        transition-duration: 2s;
+                    }
+
+                  .green{
+                  background:green;
+                  }
+
+                  @keyframes animate {
+                      0%   {opacity: 0.85;margin: -26% 3% 3% 3%;}
+                      
+                      25%  {opacity: 0.89;margin: 1% 3% 3% 3%}
+                      
+                      60%  {opacity: 0.89;margin: 2% 3% 3% 3%}
+                      
+                      100% {opacity: 0.98;margin: 3% 3% 3% 3%}
+                  }
+                        </style>
+                  {% endif %}
+
+          <script type="text/javascript">
+              move();
+          var maxwidth = $('span#value').html();
+                console.log(maxwidth);
+
+                $('.overlay').appendTo(".notification");
+                // $('.overlay').click(function () {
+                //         $(this).remove();
+                // });
+
+                $(document).on('click', '.overlay', function () { $(this).remove(); });
+                function move() {
+                        var elem = document.getElementById("myBar");
+                        var width = 1;
+                        var id = setInterval(frame, 10);
+                        function frame() {
+                                if (width >= maxwidth) {
+                                        clearInterval(id);
+                                } else {
+                                        width++;
+                                        elem.style.width = width + '%';
+                                }
+                        }
+                }
+
+
+
+          </script>
+
+  <!-- <h3>Search Colleges Enter Pincode:</h3> -->
+   <!--  <div class="table">
 
           <input class="form-control" id="myInput" type="text" style="width: 400px; margin: 10px;border-color: black" placeholder="Search..">
-            <table  border="0" style="border: 1px solid grey; background-color:#D3D3D3;width: 1000px; font-size: 15px" class="table table-bordered  table-hover table-borderless">
+            <table  border="0" style="border: 0px solid grey; background-color:white; width: 1000px; font-size: 15px" class="table table-bordered  table-hover table-borderless">
               <thead>
                 <th>Id</th>
                 <th>name</th>
@@ -46,7 +139,7 @@
               </thead>
             {% for form in institutes %}
               <tbody id="myTable">
-                <tr data-id="{{form.id}}" class='dragbleable-row' id="">
+                <tr data-id="{{form.id}}" class='clickable-row' id="">
                   <td>{{form.id}}</td>
                   <td id="name">{{form.name}}</td>
                   <td>{{form.institute_email}}</td>
@@ -77,46 +170,43 @@
               //window.location="http://127.0.0.1:8000/dashboard/profile/";
              });
             </script>
-
-
-
-
-
+ -->
+            <!-- <form type="get" action="." style="margin: 10" id="searchform">
+                <input  id="search_box" type="text" name="search_box" placeholder="Search..." >
+                <button id="search_submit" type="submit" >Submit</button>
+            </form>
+            {% if search_colleges != 0 %}
+                
+                {% if search_colleges %}
+                <table border="1px">
+                <thead>
+                <th>Id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>contact</th>
+                <th>board</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>pincode</th> 
+                </thead>  
+                  {% endif %}                 
+               
+                {% for college in search_colleges %}
+                  <tr data-id="{{college.id}}" class='dragbleable-row' id="">
+                  <td>{{college.id}}</td>
+                  <td id="name">{{college.name}}</td>
+                  <td>{{college.institute_email}}</td>
+                  <td>{{college.contact}}</td>
+                  <td>{{college.board}}</td>
+                  <td>{{college.address}}</td>
+                  <td>{{college.city}}</td>
+                  <td id="pincode">{{college.pin_code}}</td>
+                </tr>
+                {% endfor %}
+                
+            {% endif %}
+ -->
       </div>
 </div>
-<!-- 
-<script type="text/javascript">
-  $('.find').click(function(){
-
-  //var formData = new FormData();
-  var pincode = [];
-  pincode.push($("#pincode").val());
-  console.log(pincode);
-  var find_college = "{% url 'dashboard:find_college' %}";
-  //Sending Ajax Request here
-      $.ajax({
-        url: find_college,
-        type: 'POST',
-        //contentType: false,
-        //processData: false,
-
-        data: {
-          'pincode' : pincode,
-        },
-        success: function (response) {
-          console.log(response);
-          //location.reload();
-          //alert("Successfull!");
-          
-        },
-        error: function (response) {
-          console.log(response);
-        },
-      });//End of ajax request
-  });
-</script>
- -->
-
-</script>
 <!-- Content End -->
 {% endblock %}

@@ -2,13 +2,13 @@ from django.db import models
 # from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 import datetime
-
+# from dashboard.models import DpyStudents
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 # from . import enums
-
+from django import forms
 
 # Create your models here.
 class DpyInstitute(models.Model):
@@ -40,6 +40,7 @@ class DpyInstitute(models.Model):
         return self.name
 
 class DpyUsers(AbstractUser):
+    password = models.CharField(default=123,max_length=128)
     email = models.EmailField(max_length=254, unique=True,null=True)
     middle_name = models.CharField(max_length=75, null=True, blank=True)
     mobile = models.CharField(max_length=16, unique=True,null=True)

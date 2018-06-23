@@ -37,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     email = serializers.EmailField(required=True,validators=[UniqueValidator(queryset=DpyUsers.objects.all())])
     # username = serializers.CharField(max_length=32,validators=[UniqueValidator(queryset=DpyUsers.objects.all())])
-    password = serializers.CharField(min_length=8)
+    password = serializers.CharField(min_length=3)
 
     def create(self, validated_data):
         uname = generate_username(validated_data['first_name'],validated_data['last_name'])

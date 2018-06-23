@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div>
+<style scoped>
+  @import "{% static 'css/student_profile.css' %}";
+</style>
+<div style="margin-bottom: -20px">
+	<div class="" style="margin-left: 10px">
+     <a class="btn-floating waves-effect waves-light title-back-btn" onclick="window.history.back();" onmouseover="" style="cursor: pointer;">
+    	<img src="/media/icons8-left-64.png" style="height: 45px;width: 45px; margin-bottom:5px;">
+    	<!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="45px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+		<g>
+			<g>
+				<g>
+					<path fill="#49A0AE" d="M7.9,256C7.9,119,119,7.9,256,7.9C393,7.9,504.1,119,504.1,256c0,137-111.1,248.1-248.1,248.1
+						C119,504.1,7.9,393,7.9,256z"></path>
+				</g>
+			</g>
+			<path fill="#FFFFFF" d="M231.4,258.7c30.7-30.7,61.4-61.4,92.1-92.1c26.8-26.8-14.9-68.2-41.8-41.3
+				c-37.6,37.6-75.2,75.2-112.8,112.8c-11.4,11.4-11,30.3,0.2,41.5c37.6,37.6,75.2,75.2,112.8,112.8c26.8,26.8,68.2-14.9,41.3-41.8
+				C292.6,319.9,262,289.3,231.4,258.7z"></path>
+		</g>
+		</svg> -->
+     </a>
+     <span class="grey-text text-darken-2" style="font-size: 1.64rem;line-height: 52px; margin-left: 50px;">Student Profile</span>
+    </div>
+</div>
+<hr>
+    <div class="col s12 active">
+      <div class="card grey lighten-5">
+          <div class="card-content" style="padding:5px 24px;">
+            <div class="row">
+              <form class="col s12" style="padding:0;">
+                <div class="edit_buttons hidden" style="float:right;">
+              
+              <p>
+                <a href="#" class=" btn-info btn-lg">
+                  <span class="fa fa-edit"></span> Edit
+                </a>
+              </p> 
+             
+              <p>
+                <a href="#" class=" btn-info btn-lg" hidden="true">
+                  <span class="fa fa-thumbs-o-up"></span> Save
+                </a>
+              </p>
+             
+               <p>
+                <a href="#" class=" btn-info btn-lg" hidden="true">
+                  <span class="fa fa-close"></span> Cancel
+                </a>
+              </p>
+
+            </div>
+              <!-- ................................................... -->
+              <div id="personal">
+              <span class="card-title blue-text text-darken-2">Personal Details</span><br><br>
+
+              <div class="input-field col s12 m3 l3" id="student_img_div" style="margin-bottom:10%;">
+                
+                <p style="margin-bottom: 5px;">
+                <a href="#" class=" btn-info btn-lg" style="">
+                  <span class="fa fa-camera"></span>
+                </a>
+              </p>
+
+                  <img src="https://digimkey.com/dmk/assets/images/student_placeholder.jpg" alt="student_image" style="max-width: 200px;max-height:120px;" id="profile" data-src="https://digimkey.com/dmk/assets/images/student_placeholder.jpg"><br>
+                  <div class="file-field input-field">
+                    <div class="btn" style="line-height: 2rem;padding: 0 1rem;height:2rem;font-size:0.8em;">
+                      <span>Upload image</span>
+                      <input type="file" id="profile_file" disabled="" onchange="readURL(this);" style="border-bottom: none;visibility:hidden"">
+                    </div>
+                    <div class="file-path-wrapper" style="visibility: hidden;">
+                      <input class="file-path validate" type="text" style="border-bottom: none;">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-field col s12 m3 l3">
+                    <label for="first_name">First Name <span class="mandatory"> * </span></label>
+                    <input  id="first_name" name="First Name" disabled type="text" class="validate black-text disabled_toggle" value="{{form.first_name}}" required placeholder="{{form.first_name}}">
+                </div>
+
+                 <div class="input-field col s12 m3 l3">
+                 <label for="middle_name">Middle Name</label>
+                    <input  id="middle_name" name="Middle Name" disabled type="text" class="validate black-text disabled_toggle" value="{{form.middle_name}}" placeholder="{{form.middle_name}}">
+                </div>
+    
+               <div class="input-field col s12 m3 l3">
+                  <label for="lirst_name">Last Name</label><span class="mandatory"> * </span>
+                  <input  id="last_name" name="Last Name" disabled type="text" class="validate black-text disabled_toggle" value="{{form.last_name}}" required placeholder="{{form.last_name}}">
+              </div>
+
+              <div class="input-field col s12 m3 l3">
+                  <label for="email">Email</label>
+                  <input  id="email" name="email" disabled type="text" class="validate black-text disabled_toggle" value="{{form.email}}" placeholder="{{form.email}}">
+              </div>
+              
+               <div class="input-field col s12 m3 l3">
+                  <label for="mobile">Mobiel</label><span class="mandatory"> * </span>
+                  <input  id="mobile" name="mobile" disabled type="text" class="validate black-text disabled_toggle" value="{{form.mobile}}" required placeholder="{{form.mobile}}">
+               </div>
+                               
+
+               <div class="input-field col s12 m3 l3">
+                  <label for="dob">Date Of Birth</label><span class="mandatory"> * </span>
+                  <input  id="dob" name="Date Of Birth" disabled type="text" class="validate black-text disabled_toggle" value="{{form.dob}}" required placeholder="{{form.dob}}">
+               </div>
+
+               <div class="input-field col s12 m3 l3">
+                  <label for="religion">Religion</label>
+                  <input  id="religion" name="religion" disabled type="text" class="validate black-text disabled_toggle" value="{{form.religion}}" placeholder="{{form.religion}}">
+               </div>
+
+               <div class="input-field col s12 m3 l3">
+                  <label for="caste">Caste</label><span class="mandatory"> * </span>
+                  <input  id="Caste" name="Caste" disabled type="text" class="validate black-text disabled_toggle" value="{{form.caste}}" required placeholder="{{form.caste}}">
+               </div>
+
+               <div class="input-field col s12 m3 l3">
+                  <label for="adhar">Adhar No.</label><span class="mandatory"> * </span>
+                  <input  id="adhar" name="adhar" disabled type="text" class="validate black-text disabled_toggle" value="{{form.adhar_no}}" required placeholder="{{form.adhar_no}}">
+               </div>
+
+               <div class="input-field col s12 m3 l3  black-text">
+               <label>Gender <span class="mandatory"> * </span></label>
+                <select id="student_gender" name="Student Gender" required select disabled class="disabled_toggle">
+                  <option value="" selected disabled>Gender</option>
+                  <option value="male" {% if form.gender == 'male' or form.gender == 'Male' %} selected {% endif %} >Male</option>
+                  <option value="female"{% if form.gender == 'female' or form.gender == 'Female' %} selected {% endif %}>Female</option>
+                </select>
+              </div>
+
+              <div class="input-field col s12 m3 l3  black-text">
+                <label>Blood Group </label>
+                <select id="blood_group" name="Blood Group" required select disabled class="disabled_toggle">
+                  <option value="" selected disabled>Blood Group</option>
+                  <option value="A+" {% if form.blood_group == 'A+' %} selected {% endif %} >A+</option>
+                  <option value="A-" {% if form.blood_group == 'A-' %} selected {% endif %} >A-</option>
+                  <option value="B+" {% if form.blood_group == 'B+' %} selected {% endif %} >B+</option>
+                  <option value="B-" {% if form.blood_group == 'B-' %} selected {% endif %} >B-</option>
+                  <option value="AB+" {% if form.blood_group == 'AB+' %} selected {% endif %} >AB+</option>
+                  <option value="AB-" {% if form.blood_group == 'AB-' %} selected {% endif %} >AB-</option>
+                  <option value="0+" {% if form.blood_group == 'O+' %} selected {% endif %} >O+</option>
+                  <option value="0-" {% if form.blood_group == 'O-' %} selected {% endif %} >O-</option>
+                </select>
+              </div>
+
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <br>
+         <!--.........................Admin Details..................................................-->
+    
+  <div class="card grey lighten-5">
+    <div class="card-content" style="padding:5px 24px;">
+      <div class="row" style="margin-bottom:0;">
+        <div class="col s12 m12 l12">
+            <div class="edit_buttons hidden" style="float:right;">
+              <!-- <a class="btn-floating waves-effect waves-light blue cutom_btn edit_info">mode_edit</a> -->
+              <p>
+                <a href="#" class=" btn-info btn-lg">
+                  <span class="fa fa-edit"></span> Edit
+                </a>
+              </p> 
+              <p>
+                <a href="#" class=" btn-info btn-lg" hidden="true">
+                  <span class="fa fa-thumbs-o-up"></span> Save
+                </a>
+              </p>
+             
+               <p>
+                <a href="#" class=" btn-info btn-lg" hidden="true">
+                  <span class="fa fa-close"></span> Cancel
+                </a>
+              </p>
+            </div>
+            <span class="card-title blue-text text-darken-2">Admin Details</span><br><br>
+            <!--..........................................-->
+            <div class="row">
+              <form class="col s12" style="padding:0;margin-bottom:0;">
+                <div class="input-field col s12 m6 l6 black-text">
+                <label for="icon_telephone">Admission Date</label>
+                  <input name="Admission Date" disabled type="date" class="datepicker disabled_toggle" id="admission_date" value="{{form.date_of_addmission}}" required placeholder="{{form.date_of_addmission}}">
+                </div>
+
+                <div class="input-field col s12 m6 l6">
+                  <label for="gr_number">GR Number</label>
+                  <input name="GR Number" id="gr_number"  disabled type="text" class="validate black-text disabled_toggle" value="{{form.gr_no}}" placeholder="{{form.gr_no}}" >
+                </div>
+                  
+                   <div class="col s12 additional_info">
+       
+                   </div> 
+                          <!--........................................................-->
+              </form>             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+      </div>
+      
+
+
+
+
+
+
+
+
+</div>
+{% endblock %}

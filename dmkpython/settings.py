@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '0sw2%_v=zh+5)b69p437$h7von3eb4ki55hf0nj)#38p33du=n'
-
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'rest_auth',
     'corsheaders',
+    'dashboard',
     'login',
     'onboarding',
-    'dashboard',
+    'import_export',
 ]
 
 MIDDLEWARE = [

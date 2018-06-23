@@ -1,17 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<h2>Bulk Upload</h2>
+
 Download File : <a href="{% url 'dashboard:download' %}"><button class="btn-primary">
 	Download
 </button></a> 
-<h4>Select file downloaded and filled from above  link to upload multiple students at a time.</h4>
-<form action="{% url 'dashboard:bulk_upload' %}" method="POST" enctype="multipart/form-data" class="form-horizontal"> 
+<h4>Download file from above button and fill it's fields and then upload file to upload data of multiple students at a time.</h4>
+<form action="{% url 'dashboard:bulk_upload' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> 
 {% csrf_token %}
 <div class="form-group">
 	    <div class="col-md-8">
