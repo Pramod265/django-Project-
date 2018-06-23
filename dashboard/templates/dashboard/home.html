@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Page Heading Start-->
+<div class="breadcrumbs">
+  <div class="breadcrumbs-inner">
+    <div class="row m-0">
+      <div class="col-sm-4">
+        <div class="page-header float-left">
+          <div class="page-title">
+            <h1>Dashboard{{ " - "|add:user_info.institute.name }}</h1>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-sm-8">
+        <div class="page-header float-right">
+          <div class="page-title">
+            <ol class="breadcrumb text-right">
+              <li><a href="/">Dashboard</a></li>
+              <li class="active">Advanced</li>
+            </ol>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- Page Heading End-->
+
+<!-- Page Content Goes Here-->
+<div class="content mt-3">
+  <h3>Search Colleges Enter Pincode:</h3>
+    <!-- <input type="number" id="pincode" name="findCollge" style="width: 200px; margin: 10px"><input type="button" name="find" class="find" value="Find">
+     -->  <div class="table">
+
+          <input class="form-control" id="myInput" type="text" style="width: 400px; margin: 10px;border-color: black" placeholder="Search..">
+            <table  border="0" style="border: 1px solid grey; background-color:#D3D3D3;width: 1000px; font-size: 15px" class="table table-bordered  table-hover table-borderless">
+              <thead>
+                <th>Id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>contact</th>
+                <th>board</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>pincode</th> 
+              </thead>
+            {% for form in institutes %}
+              <tbody id="myTable">
+                <tr data-id="{{form.id}}" class='dragbleable-row' id="">
+                  <td>{{form.id}}</td>
+                  <td id="name">{{form.name}}</td>
+                  <td>{{form.institute_email}}</td>
+                  <td>{{form.contact}}</td>
+                  <td>{{form.board}}</td>
+                  <td>{{form.address}}</td>
+                  <td>{{form.city}}</td>
+                  <td id="pincode">{{form.pin_code}}</td>
+                </tr> 
+             </tbody>
+      
+      {% endfor %}
+        </table>
+
+         <script>//this script for filter the searchbox data of list institute form
+             $(document).ready(function(){
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                      });
+                  });
+             });
+
+             $(".clickable-row").click(function(){
+              var id = $(this).attr('data-id');
+              console.log(id);
+              //window.location="http://127.0.0.1:8000/dashboard/profile/";
+             });
+            </script>
+
+
+
+
+
+      </div>
+</div>
+<!-- 
+<script type="text/javascript">
+  $('.find').click(function(){
+
+  //var formData = new FormData();
+  var pincode = [];
+  pincode.push($("#pincode").val());
+  console.log(pincode);
+  var find_college = "{% url 'dashboard:find_college' %}";
+  //Sending Ajax Request here
+      $.ajax({
+        url: find_college,
+        type: 'POST',
+        //contentType: false,
+        //processData: false,
+
+        data: {
+          'pincode' : pincode,
+        },
+        success: function (response) {
+          console.log(response);
+          //location.reload();
+          //alert("Successfull!");
+          
+        },
+        error: function (response) {
+          console.log(response);
+        },
+      });//End of ajax request
+  });
+</script>
+ -->
+
+</script>
+<!-- Content End -->
+{% endblock %}

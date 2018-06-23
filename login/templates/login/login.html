@@ -1,0 +1,81 @@
+{% load static from staticfiles %}
+{% include 'header.html' %}
+<style type="text/css">
+
+.btn_login{
+    padding: 0.2rem 3rem;
+  }
+  body{
+    background: url('/media/login_bg.jpg');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .login-card{
+    box-shadow: 0 .5rem 0.8rem grey !important;
+    border: 0;
+  }
+  .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+      background-color: #ea4236;
+  }  
+  .bg-primary{
+    background-color:#ea4236 !important;
+  }
+  .btn-primary{
+    background-color:#ea4236 !important;
+    border-color: #ea4236 !important;
+  }
+	</style>
+<div style="width: 100%;height: 100vh;background:rgba(255, 255, 255, 0.57) /*rgba(89, 88, 107, 0.7411764705882353)*/;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4 mx-auto">
+            <div class="card login-card">
+              <div class="card-header bg-primary text-white shadow">
+                <h2 class="mb-0 my-2"><img src="/media/logo.jpg" alt="" height="50" style="border-radius:2px;"> Login</h2>
+              </div>
+              <div class="card-body">
+                <form action="#" class="" name="myform" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="input-group form-group mt-4 mb-4">
+                    <div class="input-group-prepend">
+                      <i class="input-group-text fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <input class="form-control" type='text' id='username' placeholder='Email/Mobile'>
+                  </div>
+                  <div class="input-group form-group mb-4">
+                    <div class="input-group-prepend">
+                      <i class="input-group-text fa fa-lock" aria-hidden="true"></i>
+                    </div>                    
+                    <input class="form-control" type='password' id='password' placeholder='Password'>
+                  </div>
+                  <div class="form-group custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="remember-me">
+                    <label class="custom-control-label" for="remember-me">Remember me</label>
+                  </div>
+                  <div class="form-group mt-4">
+                    <button style="width: 100%;" class="btn btn-primary login-btn" type="button" name="btn">Login</button>
+                  </div>
+                  <div class="form-group text-center">
+                    <a href="#" style="font-size: 0.8rem;"><b>Forgot Password?</b></a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var g_urls = {
+  'login': '{% url "login:rest_login" %}?next={% url "dashboard:home" %}',
+  'logout': '{% url "login:rest_logout" %}',
+};
+</script>
+<script src="{% static 'js/auth.js' %}"></script>
+</body>
+</html>
