@@ -10,7 +10,7 @@
 
 <!-- Left Panel -->
   <aside id="left-panel" class="left-panel">
-    <nav class="navbar navbar-expand-sm navbar-default">
+    <nav class="navbar navbar-expand-sm">
       <div class="navbar-header">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa fa-bars"></i>
@@ -27,7 +27,8 @@
           <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Students</a>
             <ul class="sub-menu children dropdown-menu">
-              <li><i class="fa fa-puzzle-piece"></i><a href="#">Add Student</a></li>
+              <li><i class="fa fa-address-card"></i><a href="{% url 'dashboard:view_students' %}">View Student</a></li>
+              <li><i class="fa fa-puzzle-piece"></i><a href="{% url 'dashboard:register_students' %}">Add Student</a></li>
               <li><i class="fa fa-upload"></i><a href="{% url 'dashboard:bulk_upload' %}">Bulk Upload</a></li>
             </ul>
           </li>
@@ -167,11 +168,12 @@ function googleTranslateElementInit() {
                           <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </div>
                   </a>
-
               </div>
             </div>
           </div>
+
         </div>
+
         <div class="col-sm-5">
           <div class="user-area dropdown float-right">
             <span style="line-height:40px;margin:0 1rem;">Welcome {{ request.user.get_short_name }}</span>
