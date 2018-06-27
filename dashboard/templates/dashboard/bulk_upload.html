@@ -7,22 +7,25 @@ function googleTranslateElementInit() {
 }
 </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <h2>Bulk Upload</h2>
-Download File : <a href="{% url 'dashboard:download' %}"><button class="btn-primary">
-	Download
-</button></a> 
-<h4>Select file downloaded and filled from above  link to upload multiple students at a time.</h4>
+Download File : <a href="{% url 'dashboard:download' %}"><!-- <button class="btn-primary"> -->
+	<img src="/media/download.jpeg" style="height: 45px;width: 45px ; border-radius: 20px 20px">
+<!-- </button> --></a> 
+<p>Select file downloaded and filled from above  link to upload multiple students at a time.</p>
 <form action="{% url 'dashboard:bulk_upload' %}" method="POST" enctype="multipart/form-data" class="form-horizontal"> 
 {% csrf_token %}
 <div class="form-group">
 	    <div class="col-md-8">
         <input type="file" name="csv_file" id="csv_file" accept=".csv" required="True" class="form-control">
-        <br>
-        <input type="submit" name="submit" value="Upload" class="btn btn-primary">
+        <input type="submit" name="submit" value="" class="btn btn-primary" style="background-image: url('/media/upload1.jpeg'); border:1px solid white; background-repeat:no-repeat;background-size:100% 100%; width: 45px; height: 45px; border-radius: 20px 20px;">
     	</div>                    
 </div>
-<code> 
-<a href="/i18n/setlang?lang=fr&name=next">Click here for French</a> 
-</code> 
+	<style type="text/css">
+		/*input[type=submit] {
+		    background: url('/media/upload.jpeg');
+		    height: 45px;
+		    width: 45px;
+		}*/
+	</style>
 </form>
 
 {% endblock %}

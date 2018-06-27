@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+  <script src="{% static 'js/third_party/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'js/third_party/handsontable.full.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/handsontable.full.min.css' %}">
+  <style>
+    .draggable { cursor: move; }
+    .ui-draggable-dragging { position: relative; z-index: 1000000000; }
+  </style>
+  <!-- Page Heading Start-->
+  <div class="breadcrumbs shadow-0">
+    <div class="breadcrumbs-inner">
+      <div class="row m-0">
+        <div class="col-sm-4">
+          <div class="page-header float-left">
+            <div class="page-title">
+              <h1>Timetable</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="page-header float-right">
+            <div class="page-title">
+              <ol class="breadcrumb text-right">
+                <li><a href="/">Dashboard</a></li>
+                <li class="active">Timetable</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page Heading End-->
+  <!-- Page Content Goes Here-->
+  <div class="content mt-3">
+    <div class="row">
+      <div class="col-lg-12" style="position: relative;">
+
+        <div lass="ui-widget-content">
+            <div id="excel_table" class="handsontable"></div>
+
+            <div id="move-1" class="movable-element hidden" style="right:1%;top:30%;">
+                <div id="move-1header" class="movable-header">Move Me</div>
+                  <div class="col-md-12">
+                  <div class="col-md-6 p-0">
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Junaid" data-teacher_id="1" type="radio" id="cr21" name="crds2" class="custom-control-input">
+                      <label class="custom-control-label" for="cr21" >Junaid</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Nilesh" data-teacher_id="2" type="radio" id="cr22" name="crds2" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr22" >Nilesh</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Umesh" data-teacher_id="3" type="radio" id="cr23" name="crds2" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr23" >Umesh</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Mateen" data-teacher_id="4" type="radio" id="cr24" name="crds2" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr24" >Mateen</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Aaquib" data-teacher_id="5" type="radio" id="cr25" name="crds2" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr25" >Aaquib</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Pramod" data-teacher_id="6" type="radio" id="cr26" name="crds2" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr26" >Pramod</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 p-0">
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="English" data-subject_id="1" type="radio" id="cr1" name="crds1" class="custom-control-input">
+                      <label class="custom-control-label" for="cr1">English</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Hindi" data-subject_id="2" type="radio" id="cr2" name="crds1" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr2" >Hindi</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Marathi" data-subject_id="3" type="radio" id="cr3" name="crds1" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr3" >Marathi</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Maths" data-subject_id="4" type="radio" id="cr4" name="crds1" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr4" >Maths</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Science" data-subject_id="5" type="radio" id="cr5" name="crds1" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr5" >Science</label>
+                    </div>
+                    <div class="ml-2 custom-control custom-radio">
+                      <input value="Social Science" data-subject_id="6" type="radio" id="cr6" name="crds1" class="custom-control-input">                  
+                      <label class="custom-control-label" for="cr6" >Social Science</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 border h-50 border pl-0 text-nowrap">
+                    <!-- <button class="btn btn-primary pulse px-2 py-1"><i class="fa fa-hand-rock-o"></i></button> -->
+                    <span class="ml-2 draggable teach-sub"></span>
+                  </div>
+                </div>
+            </div>
+            <div id="move-2" class="movable-element hidden" style="right:20%;top:30%;">
+                <div id="move-2header" class="movable-header">Move Me</div>
+                <div class="col-md-12">
+                  <!-- Input group, just add class 'clockpicker', and optional data-* -->
+                  <div class="input-group clockpicker" data-toggle="tooltip" data-placement="auto" title="Start Time">
+                    <input type="text" class="form-control time-picker-1" value="07:00AM">
+                    <span class="input-group-addon">
+                      <i class="fa fa-play-circle-o text-success"></i>
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                  </div>
+                  <div class="input-group clockpicker" data-toggle="tooltip" data-placement="auto" title="End Time">
+                    <input type="text" class="form-control time-picker-2" value="08:00AM">
+                    <span class="input-group-addon">
+                      <i class="fa fa-stop-circle-o text-danger"></i>
+                      <i class="fa fa-clock-o"></i>
+                    </span>
+                  </div>                  
+                  <div class="col-md-12 border h-50 border pl-0 mt-1">
+                    <!-- <button class="btn btn-primary pulse px-2 py-1"><i class="fa fa-hand-rock-o"></i></button> -->
+                    <span class="draggable time-table-time">07:00AM-08:00AM</span>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary generate-timetable"> <i class="fa fa-cog"></i> Submit</button>
+      </div>
+    </div>
+  </div>
+  <!-- Content End -->
+  <script>
+  dragElement(document.getElementById(("move-1")));//Defined in custom js
+  dragElement(document.getElementById(("move-2")));//Defined in custom js
+  $(document).ready(function () {
+
+    $('[data-toggle="tooltip"]').tooltip({
+      animation:false,
+      trigger:"hover"
+    });
+
+    $('.clockpicker').clockpicker({autoclose:true,twelvehour: true}).find('input').change(function(){
+      $('.time-table-time').text($('.time-picker-1').val()+'-'+$('.time-picker-2').val());
+      // TODO: time changed
+      console.log(this.value);
+    });
+
+    $('input[name="crds2"]').click(function(){
+      var sub = ($('input[name="crds1"]:checked').val()) ? $('input[name="crds1"]:checked').val() : 'Select Subject';
+      $('.teach-sub').html($(this).val()+'-'+sub);
+    });
+    $('input[name="crds1"]').click(function(){
+      var teach = ($('input[name="crds2"]:checked').val()) ? $('input[name="crds2"]:checked').val() : 'Select Teacher';
+      $('.teach-sub').html(teach+'-'+$(this).val());
+    });
+
+    var data = [
+      ['','07:00AM-08:00AM', '08:00AM-09:00AM', '09:00AM-10:00AM', '10:00AM-11:00AM', '11:00AM-12:00AM', '12:00AM-01:00PM', '01:00PM-02:00PM'],
+      ["Monday", '', '', '', '', '', '', '' ],
+      ["Tuesday", '', '', '', '', '', '', '' ],
+      ["Wednesday", '', '', '', '', '', '', '' ],
+      ["Thursday", '', '', '', '', '', '', '' ],
+      ["Friday", '', '', '', '', '', '', '' ],
+      ["Saturday", '', '', '', '', '', '', '' ],
+      ["Sunday", '', '', '', '', '', '', '' ]
+    ];
+
+    var container = document.getElementById('excel_table');
+    var hot = new Handsontable(container, {
+      data: data,
+      // rowHeaders: [ "", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      // rowHeaders: ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      rowHeaders: true,
+      colHeaders: true,
+      contextMenu: true,
+      manualColumnResize: true,
+      manualRowResize: true,
+      // colWidths: 60,
+      rowHeights: 30,
+      fillHandle: true,
+      customBorders:true,
+      cells: function(row, col, prop) {
+        var cellProperties = {};
+
+        // if (row === 0) {
+        //   cellProperties.className = 'disabled'
+        //   cellProperties.editor = 'time';
+        // }
+        // cellProperties.readOnly = true;
+        return cellProperties;
+      },
+      contextMenu: {
+        callback: function (key, options) {
+          if (key === 'my_custom') {
+            setTimeout(function () {
+              // timeout is used to make sure the menu collapsed before alert is shown
+              alert("This is a context menu with default and custom options mixed");
+            }, 100);
+          }
+          if (key === 'clear') {
+            $.each(options,function(key,value){
+              for (var i = value.start.row; i <= value.end.row; i++) {
+                for (j=value.start.col;j <= value.end.col;j++) {
+                  hot.setDataAtCell(i, j, '');
+                }
+              }
+            });
+          }
+        },
+        items: {
+          "my_custom": { name: 'My custom option'},
+          "row_above":{},
+          "row_below":{},
+          "hsep1":"---------",
+          "col_left":{},
+          "col_right":{},
+          "hsep2":"---------",
+          "remove_row":{},
+          "remove_col":{},
+          "hsep3":"---------",
+          "undo":{},
+          "clear":{name:'Clear (ctrl+delete)'},
+          "mergeCells":{},
+          "redo":{},
+          "alignment":{},
+          "borders":{},
+        }
+      },
+      mergeCells: true,
+    });
+
+    $(".draggable").draggable({revert: "invalid", helper: 'clone'});
+
+    $('.draggable').click(function() {
+      //$("#excel_table").insertAtCaret($(this).text());
+      return false
+    });
+
+    $("#excel_table").droppable({
+        accept: ".draggable",
+        drop: function(event, ui) {
+            
+            // Get a reference to the handsontable instance
+            var ht = hot.getInstance();
+            // Hide the helper, so that we can use .elementFromPoint
+            // to grab the item beneath the cursor by coordinate
+            ui.helper.hide();
+            var $destination = $(document.elementFromPoint(event.clientX, event.clientY));
+            
+            // Grab the parent tr, then the parent tbody so that we
+            // can use their index to find the row and column of the
+            // destination object
+            var $tr = $destination.closest('tr');
+            var $tbody = $tr.closest('tbody');
+            
+            var col = $tr.children().index($destination)-1;
+            var row = $tbody.children().index($tr);
+            // Use the setDataAtCell method, which takes a row and
+            // col number, to adjust the data
+            var data_attrs = getDataAttributes(ui.draggable[0])
+            // $.each(data_attrs,function (index,value) {
+            //     $(ev.target).attr('data-'+index,value);
+            // });
+            if (row >= 0 && col >= 0) {
+              ht.setDataAtCell(row, col, ui.draggable.text());
+            }
+        },
+        over: function(event, elem) {
+            $(this).addClass("over");
+            console.log("over");
+        },
+        out: function(event, elem) {
+            $(this).removeClass("over");
+        }
+    });
+
+    $('.generate-timetable').click(function(){
+      console.log(hot.getData());
+    });
+
+    //Add custom functions to table on key press(ctrl+custom_key)
+    document.addEventListener("keydown", function(event) {
+      var ctrl = event.ctrlKey;
+      var key = event.key;
+      if (ctrl) {
+        if (key === 'Delete') {
+          for (var i = hot.getSelected()[0][0]; i <= hot.getSelected()[0][2]; i++) {
+            for (j=hot.getSelected()[0][1];j <= hot.getSelected()[0][3];j++) {
+              hot.setDataAtCell(i, j, '');
+            }
+          }
+        }
+      }
+    });    
+
+  });
+
+  </script>
+{% endblock %}
