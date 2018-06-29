@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'login',
     'onboarding',
     'dashboard',
+    'class_user_profiling',
+    'attendence',
+    'manage_hr',
 ]
 
 MIDDLEWARE = [
@@ -172,6 +175,7 @@ SWAGGER_SETTINGS = {
 }
 
 CORS_ORIGIN_WHITELIST = (
-    '192.168.1.5',
-    '127.0.0.1:8000'
+    '192.168.0.7',
+    '127.0.0.1:8000',
+ 
 )

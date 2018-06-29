@@ -10,6 +10,7 @@ class DpyStudents(models.Model):
     roll_no = models.IntegerField()
     gr_no = models.IntegerField()
     dob = models.CharField(max_length=20)
+    email = models.CharField(max_length=100,null="true")
     blood_group = models.CharField(max_length=20)
     caste = models.CharField(max_length=20)
     nationality = models.CharField(max_length=20)
@@ -22,7 +23,9 @@ class DpyStudents(models.Model):
     gender = models.CharField(max_length=20)
     student_type = models.CharField(max_length=20)
     mobile = models.CharField(max_length=12)
-
+    student_class = models.CharField(max_length=12,default = "", null=True)
+    section = models.CharField(max_length=12,default = "", null=True)
+    institute_id = models.IntegerField()
     class Meta:
         managed = False
         db_table = 'dpy_students'
