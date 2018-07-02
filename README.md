@@ -1,2 +1,0 @@
-# django-Project-
-# dmk-Python
