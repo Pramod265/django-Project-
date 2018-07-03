@@ -1,28 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<h2>Bulk Upload</h2>
-Download File : <a href="{% url 'dashboard:download' %}"><button class="btn-primary">
-	Download
-</button></a> 
-<h4>Select file downloaded and filled from above  link to upload multiple students at a time.</h4>
+<div style="display: inline-block;margin-bottom: -20px;">
+<a class="btn-floating waves-effect waves-light title-back-btn" onclick="window.history.back();" onmouseover="" style="cursor: pointer;display: inline-block;">
+    		<img src="/media/icons8-left-64.png" style="height: 45px;width: 45px; margin-bottom:5px;">
+     	</a>
+</div>
+
+<hr>
+
+<div class="card-layout" style="width: 800px;height: 230px;background-color: white;box-shadow: 2px 2px 2px 2px lightgrey; margin: 50px 50px; padding: 20px">
+Download File : <a href="{% url 'dashboard:download' %}"><!-- <button class="btn-primary"> -->
+	<img src="/media/download.jpeg" style="height: 45px;width: 45px ; border-radius: 20px 20px">
+<!-- </button> --></a> 
+<p>Select file downloaded and filled from above  link to upload multiple students at a time.</p>
 <form action="{% url 'dashboard:bulk_upload' %}" method="POST" enctype="multipart/form-data" class="form-horizontal"> 
 {% csrf_token %}
 <div class="form-group">
-	    <div class="col-md-8">
-        <input type="file" name="csv_file" id="csv_file" accept=".csv" required="True" class="form-control">
-        <br>
-        <input type="submit" name="submit" value="Upload" class="btn btn-primary">
+	    <div class="col-md-8" style="padding-left: 0px; width: 600px">
+        <input type="file" name="csv_file" id="csv_file" accept=".csv" required="True" class="form-control" style="width: 50%;display: inline-block;">
+        <input type="submit" name="submit" value="" class="btn btn-primary" style="background-image: url('/media/upload1.jpeg'); border:1px solid white; background-repeat:no-repeat;background-size:100% 100%; width: 45px; height: 45px; border-radius: 20px 20px;">
     	</div>                    
 </div>
-<code> 
-<a href="/i18n/setlang?lang=fr&name=next">Click here for French</a> 
-</code> 
+	<style type="text/css">
+		/*input[type=submit] {
+		    background: url('/media/upload.jpeg');
+		    height: 45px;
+		    width: 45px;
+		}*/
+	</style>
 </form>
-
+</div>
 {% endblock %}
