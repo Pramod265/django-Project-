@@ -14,6 +14,8 @@ from rest_framework.authtoken.models import Token
 class DpyInstitute(models.Model):
     name = models.CharField(max_length=100)
     institute_email = models.EmailField(max_length=100,null=True)
+    institute_website = models.EmailField(max_length=100,null=True)
+    demo_link = models.EmailField(max_length=100,null=True)
     contact = models.CharField(max_length=12,null=True)
     board = models.CharField(max_length=100,blank=True)
     nature = models.PositiveSmallIntegerField()
