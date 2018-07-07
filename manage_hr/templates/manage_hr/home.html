@@ -1,0 +1,191 @@
+{% extends 'base.html' %} {% block title %} HR Management {% endblock %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'hr_style.css'%}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+<style>
+    div.block {
+        box-shadow: 1px 1px 20px -7px;
+        padding: 27px;
+        margin-bottom: 1%;
+    }
+</style>
+<div class="data-head">
+    <span>Add Employe</span>
+</div>
+<form method="POST" class="data">
+    {% csrf_token %}
+    
+    <span class="data-head">Basic Details</span>
+    <div class="block">
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-user"></i>
+            </span>
+
+            <input class="input" id="fname" placeholder="First Name"> </input>
+        </div>
+
+
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-user"></i>
+            </span>
+
+            <input class="input" id="mname" placeholder="Middle Name"> </input>
+        </div>
+
+
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-user"></i>
+            </span>
+
+            <input class="input" id="lname" placeholder="Last Name"> </input>
+        </div>
+
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </span>
+
+            <select id="desig" class="input">
+                <optgroup>
+                    <option>Designation</option>
+                    <option value="Teaching Staff">Teaching Staff</option>
+                    <option value="Non-Teaching Staff">Non-Teaching Staff</option>
+                    <option value="Part-time Staff">Part-time Staff</option>
+                    <option value="HR Staff">HR Staff</option>
+                    <option value="Guest lecture">Guest lecture</option>
+                    <option value="Other">Other</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-building"></i>
+            </span>
+
+            <select id="depart" class="input">
+                <optgroup>
+                    <option>Department</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Accounts">Accounts</option>
+                    <option value="Teaching">Teaching</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-user"></i>
+            </span>
+
+            <select id="gender" class="input">
+                <optgroup>
+                    <option>Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </optgroup>
+            </select>
+        </div>
+        
+
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-mobile-alt"></i>
+            </span>
+
+            <input id="mobno" maxlength="10" minlength="10" class="input" type="number" placeholder="Mobile Number"> </input>
+        </div>
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-rupee-sign"></i>
+            </span>
+            <input id="salary" class="input" type="number" placeholder="salary"> </input>
+        </div>
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-at"></i>
+            </span>
+            <input id="email" class="input" type="email" placeholder="Email" />
+        </div>
+        <div class="in-feilds">
+                <span style="margin-bottom:2px; font-size: 11px;">Date of Join</span>
+                <div class="input-feilds">
+                    <span class="fa-icons">
+                        <i class="fas fa-calendar-alt"></i>
+                    </span>
+                    <input id="date" placeholder="Date Of Birth..." oninput="this.className = ''" class="" name="date_of_birth" id="date_of_birth"
+                        type="date">
+                </div>
+            </div>
+    </div>
+
+
+    <input id="save" type="button" value="Add" />
+</form>
+
+<script>
+    var fulldate, desig, depart, gender;
+
+    $("#date").change(function () {
+        var date = new Date($('#date').val());
+        day = date.getDate();
+        month = date.getMonth() + 1;
+        year = date.getFullYear();
+        fulldate = [day, month, year].join('/');
+    });
+    $("select#desig").change(function () {
+        desig = $("#desig option:selected").val();
+    });
+    $("select#depart").change(function () {
+        depart = $("#depart option:selected").val();
+    });
+    $("select#gender").change(function () {
+        gender = $("#gender option:selected").val();
+    });
+
+
+    $('#save').click(function () {
+
+        var fname = $('#fname').val();
+        var mname = $('#mname').val();
+        var lname = $('#lname').val();
+        var mobno = $('#mobno').val();
+        var email = $('#email').val();
+        var salary = $('#salary').val();
+        // alert("clicked");
+        var data = [];
+        data.push(fname, mname, lname, mobno, email, fulldate, desig, depart, gender, salary);
+        console.log(data);
+        if (fname == '' && mname == '' && lname == '' && mobno == '' && email == '' && fulldate == '' && desig == '' && depart == '' && gender == '' && salary == '') {
+            alert("Enter details");
+            $('.notification').append("<div class='overlay'> <div class='close'></div>Please Try again !!</div>");
+        }
+        else {
+
+            $.ajax({
+                url: 'insert_emp/',
+                type: 'POST',
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                enctype: "multipart/form-data",
+                data: {
+                    'studentData': data,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Status) {
+                        $('.notification').append("<div class='overlay green'> <div class='close'></div>Employe Added Successfully!!</div>");
+
+                    }
+                    else {
+                        $('.notification').append("<div class='overlay'> <div class='close'></div>Please Try again !!</div>");
+                    }
+                }
+            });
+        }
+
+    });
+
+
+</script> {% endblock %}
