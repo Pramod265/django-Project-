@@ -43,3 +43,28 @@ class SignUp(APIView):
                 return Response({"status": False, "message": instUser.errors}, status=status.HTTP_400_BAD_REQUEST)
             return Response({"status": False, "message": userSerial.errors}, status=status.HTTP_400_BAD_REQUEST)
         return Response({"status": False, "message": institute.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+from django.views.decorators.csrf import csrf_exempt
+
+class AddStudent(APIView):
+    permission_classes = (AllowAny,)
+    def get(self, request, format=None):
+        return render(request, 'dashboard/add_students.html')
+    @csrf_exempt
+    def post(self, request, format=None):
+        import json
+        userSerial = UserSerializer(data=json.loads(request.data.get('user')))
+        if userSerial.is_valid():
+            instUser = InstituteUserSerializer(data=json.loads(request.data.get('instuser')))
+            if instUser.is_valid():
+                user = userSerial.save()
+                if request.FILES.get('image') is not None : user.image = request.FILES.get('image')
+                user.created_by = request.user.id
+                user.save()
+
+                instUserdata = {"created_by":request.user.id, "user_id":user.pk, "institute_id":request.session['institute_id']}
+                instUser.save(**instUserdata)
+
+                return Response({"status": True, "message": "Created Successfully."}, status=status.HTTP_201_CREATED)
+            return Response({"status": False, "message": instUser.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"status": False, "message": userSerial.errors}, status=status.HTTP_400_BAD_REQUEST)

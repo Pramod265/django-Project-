@@ -1,0 +1,203 @@
+<div> 
+    <style type="text/css" scoped>
+    .input_of_Update {
+    padding: 4px 10px;
+    width: 65%;
+    margin-left: 30px;
+    margin-top: -20;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    height: 42px;
+    color: black;
+    margin-bottom: 10px;
+    }
+
+    .lbl required-field {
+      color: #697179;
+
+    }
+    #update_labels {
+      left: 25px;
+      width: 120px;
+      height: 30px;
+      font-size: 18px;
+    }
+    </style>
+        <div class="overlay" id="UpdatePersonalPanel" style="visibility: hidden; position: absolute;width: 685px;height: auto;z-index: 1035;top: 100px;left: 390.5px; background-color: white; float: center">
+           <div class="close" onclick="document.getElementById('UpdatePersonalPanel').style.visibility= 'hidden'; document.getElementById('main_container').  style.opacity= '1';">x</div>
+             <span style="color: #697179">Update Your Personal Details Here.</span>
+                   <br><br>
+                 <form id="update_form" method="post" action="" style="width: 600px;margin-left: 20px; margin-right: 25px; ">
+                          <div>
+                         <!--  <div class="input-field col s12 mt0" id="update_labels"><span class="lbl required-field" style="color:  #697179">First Name</span></div> -->
+                         <label for="#first_name" id="update_labels">First Name <span class="mandatory"> * </span></label>
+                          <input type="text" id="first_name" name="first_name" class="input_of_Update" maxlength="100" placeholder="Enter First Name"  rel="required:projectTitle,specialChar:validChar" value="{{form.first_name}}">
+
+                            <br>
+                          <label for="#middle_name" id="update_labels">Middle Name &nbsp;</label>
+                          <input type="text" id="middle_name" name="first_name" class="input_of_Update" maxlength="100" placeholder="Enter Middle Name" value="{{form.middle_name}}">
+
+                          <br>
+                          <label for="#last_name" id="update_labels">Last Name &nbsp;</label>
+                          <input type="text" id="last_name" name="last_name" class="input_of_Update" maxlength="100" placeholder="Enter Last Name" value="{{form.last_name}}">
+                          
+                          <br>
+                          <label for="#email" id="update_labels">Email &nbsp;</label>
+                          <input type="text" id="email" name="email" class="input_of_Update" maxlength="100" placeholder="Enter Email" value="{{form.email}}">
+                          
+                          <br>
+                          <label for="#mobile" id="update_labels">Mobile &nbsp;</label>
+                          <input type="text" id="mobile" name="mobile" class="input_of_Update" maxlength="100" placeholder="Enter Mobile No." value="{{form.mobile}}">
+
+                           <br>
+                          <label for="#dob" id="update_labels">Date Of Birth &nbsp;</label>
+                          <input type="date" id="dob" name="dob" class="input_of_Update" maxlength="100" placeholder="Enter Date Of Birth"  value="{{form.dob}}" required placeholder="{{form.dob}}">
+                          <br>
+                          <label for="#religion" id="update_labels">Religion &nbsp;</label>
+                          <input type="text" id="religion" name="religion" class="input_of_Update" maxlength="100" placeholder="Enter Religion" value="{{form.religion}}">
+
+                          <br>
+                          <label for="#caste" id="update_labels">caste &nbsp;</label>
+                          <input type="text" id="caste" name="caste" class="input_of_Update" maxlength="100" placeholder="Enter Religion" value="{{form.caste}}">
+
+                          <br>
+                          <label for="#adhar_no" id="update_labels">Adhar No. &nbsp;</label>
+                          <input type="text" id="adhar_no" name="adhar_no" class="input_of_Update" maxlength="100" placeholder="Enter adhar_no" value="{{form.adhar_no}}">
+
+                          <br>
+                          <label for="#student_gender" id="update_labels">Gender &nbsp;</label>
+                          <select id="student_gender" name="gender" required select class="disabled_toggle" style="border:1px solid #ddd; width: 65%;height: 42px; display: -webkit-inline-box; margin-left: 30px">
+                            <option value="" selected disabled>Gender</option>
+                            <option value="male" {% if form.gender == 'male' or form.gender == 'Male' %} selected {% endif %} >Male</option>
+                            <option value="female"{% if form.gender == 'female' or form.gender == 'Female' %} selected {% endif %}>Female</option>
+                          </select>
+                          
+                          <br>
+                          <label for="#blood_group" id="update_labels">Blood Group</label>
+                          <select id="blood_group" name="blood_group" required select class="disabled_toggle" style="border:1px solid #ddd; width: 65%;height: 42px; display: -webkit-inline-box; margin-left: 30px">
+                            <option value="" selected disabled>Blood Group</option>
+                            <option value="A+" {% if form.blood_group == 'A+' %} selected {% endif %} >A+</option>
+                            <option value="A-" {% if form.blood_group == 'A-' %} selected {% endif %} >A-</option>
+                            <option value="B+" {% if form.blood_group == 'B+' %} selected {% endif %} >B+</option>
+                            <option value="B-" {% if form.blood_group == 'B-' %} selected {% endif %} >B-</option>
+                            <option value="AB+" {% if form.blood_group == 'AB+' %} selected {% endif %} >AB+</option>
+                            <option value="AB-" {% if form.blood_group == 'AB-' %} selected {% endif %} >AB-</option>
+                            <option value="0+" {% if form.blood_group == 'O+' %} selected {% endif %} >O+</option>
+                            <option value="0-" {% if form.blood_group == 'O-' %} selected {% endif %} >O-</option>
+                          </select>
+
+                            <div style="float: right; margin-right: 50px;">
+                            <span style="cursor: pointer; color: white">
+                            <a onclick="document.getElementById('UpdatePersonalPanel').style.visibility= 'hidden'; document.getElementById('main_container').style.opacity= '1';" class=" btn-info btn-lg" style="height: 42px;">
+                            <span class="fa fa-close"></span> Cancel
+                            </a>
+                            </span>
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="cursor: pointer; color: white">
+                            <a id="update_student" name="update_student" class="btn-info btn-lg" style="height: 42px;">
+                            <span class="fa fa-thumbs-o-up"></span> Save
+                            </a>
+                            </span>
+
+                          </div>
+
+                          </div>
+                      </form>
+
+                      <script type="text/javascript">
+                      $('#update_student a').click(function () {
+                      var url = "{% url 'dashboard:update_student_profile' id=form.id %}", students = {};
+                      alert(""+document.getElementById('dob').value);
+                      // var image = document.getElementById('image').files[0];
+                      
+                      $("#first_name,#middle_name,#last_name,#email,#mobile,#dob,#religion,#caste,#adhar_no,#gender,#blood_group").each(function(){
+                          students[$(this).attr('name')] = $(this).val();
+                      });
+                      
+                      var formData = new FormData();
+                          formData.append("parents",JSON.stringify(students));
+                          // formData.append("user",JSON.stringify(usr));
+                          // formData.append("instuser",JSON.stringify(instUsr));
+                          // formData.append("logo",logo);
+                          // formData.append("school_image",school_image);
+                          formData.append("image",image);
+                          console.log(parents);
+                          console.log(image);
+                          var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                        $.ajax({
+                        type: "post",
+                        url: url,
+                        data: formData,
+                        contentType: false,
+                    processData: false,
+                        //csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val(),
+                        //headers:{"X-CSRFToken": csrftoken},
+                        /*headers: <Headers[]> [
+                              {
+                                name: 'X-CSRFTOKEN', value: this.csrftoken
+                              },
+                            ],*/
+                        success: function(response) {
+                          console.log(response);
+                          alert("successfully added.");
+                          location.reload();
+                        },
+                        error: function(response) {
+                          console.log(response);
+                        }
+                                        });
+                                     
+
+                          </script>
+
+
+                  </div>
+                   <style type="text/css">
+                        .overlay {
+                      background: #ff3232;
+                      padding: 13px;
+                      left: 150px;
+                      color:white;
+                      position: relative;
+                      box-shadow: 1px 12px 43px -5px black;
+                      opacity: 0.6;
+                      border-radius: 9px;    
+                      margin: -41% 3% 3% 3%;
+                      transition: margin 2s ease;
+                      animation: animate 0.8s forwards;
+                      transition-duration: 2s;
+                     }
+
+                  .green{
+                  background:green;
+                  }
+
+                  @keyframes animate {
+                      0%   {opacity: 0.85;margin: -26% 3% 3% 3%;}
+                      
+                      25%  {opacity: 0.89;margin: 1% 3% 3% 3%}
+                      
+                      60%  {opacity: 0.89;margin: 2% 3% 3% 3%}
+                      
+                      100% {opacity: 0.98;margin: 3% 3% 3% 3%}
+                  }
+                        </style>
+                
+
+</div>
+
+
+<!-- <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="45px" height="40px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+    <g>
+      <g>
+        <g>
+          <path fill="#49A0AE" d="M7.9,256C7.9,119,119,7.9,256,7.9C393,7.9,504.1,119,504.1,256c0,137-111.1,248.1-248.1,248.1
+            C119,504.1,7.9,393,7.9,256z"></path>
+        </g>
+      </g>
+      <path fill="#FFFFFF" d="M231.4,258.7c30.7-30.7,61.4-61.4,92.1-92.1c26.8-26.8-14.9-68.2-41.8-41.3
+        c-37.6,37.6-75.2,75.2-112.8,112.8c-11.4,11.4-11,30.3,0.2,41.5c37.6,37.6,75.2,75.2,112.8,112.8c26.8,26.8,68.2-14.9,41.3-41.8
+        C292.6,319.9,262,289.3,231.4,258.7z"></path>
+    </g>
+    </svg> -->

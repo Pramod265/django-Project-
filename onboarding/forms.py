@@ -13,3 +13,12 @@ class OnboardInstitute(forms.ModelForm):
 #     class Meta:
 #         model = models.DpyEmployee
 #         fields = ['first_name','middle_name','last_name','email','mobile','image','type','designation',]
+class OnboardUser(forms.ModelForm):
+    class Meta:
+        model = models.DpyUsers
+        fields = '__all__'
+
+class OnboardInstituteUser(forms.ModelForm):
+    class Meta:
+        model = models.DpyInstituteUsers
+        fields = '__all__'
