@@ -12,16 +12,18 @@ from rest_framework.authtoken.models import Token
 
 # Create your models here.
 class DpyInstitute(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
     institute_email = models.EmailField(max_length=100,null=True)
+    institute_website = models.CharField(max_length=100,null=True)
+    demo_link = models.CharField(max_length=100,blank=True) 
     contact = models.CharField(max_length=12,null=True)
     board = models.CharField(max_length=100,blank=True)
-    nature = models.PositiveSmallIntegerField()
+    nature = models.PositiveSmallIntegerField()#1:School,2:College,3:Other
     logo = models.ImageField(default='institute_logo.png', blank=True)
-    school_image = models.ImageField(default='institue_default.png', blank=True)
+    institute_image = models.ImageField(default='institue_default.png', blank=True)
     medium = models.PositiveSmallIntegerField()
     university = models.CharField(max_length=100, null=True, blank=True)
-    address = models.CharField(max_length=110,blank=True)
+    address = models.CharField(max_length=255,blank=True)
     city = models.CharField(max_length=20, null=True, blank=True)
     pin_code = models.IntegerField()
     state = models.CharField(max_length=20, null=True, blank=True)
@@ -44,6 +46,15 @@ class DpyUsers(AbstractUser):
     middle_name = models.CharField(max_length=75, null=True, blank=True)
     mobile = models.CharField(max_length=16, unique=True,null=True)
     dob = models.DateField(null=True)
+    gender = models.CharField(max_length=20, choices=(("1", "Male"), ("2", "Female"), ("3", "Other")))
+    blood_group = models.CharField(max_length=5,null=True)
+    religion = models.CharField(max_length=75,null=True)
+    caste = models.CharField(max_length=75,null=True)
+    mother_name = models.CharField(max_length=100,null=True)
+    nationality = models.CharField(max_length=75,null=True)
+    place_of_birth = models.CharField(max_length=75,null=True)
+    address = models.CharField(max_length=255,null=True)
+    address2 = models.CharField(max_length=255,null=True)
     image = models.ImageField(default='emp_default.png', blank=True)
     status = models.PositiveSmallIntegerField(default=1)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -68,7 +79,7 @@ class DpyUsers(AbstractUser):
         Required function so Django knows what to use as the users short name.
         """
 
-        return str(self.first_name)+str(" ")+str(self.last_name)
+        return self.first_name
 
     def __str__(self):
         """What to show when we output an object as a string."""
@@ -78,7 +89,9 @@ class DpyUsers(AbstractUser):
 class DpyInstituteUsers(models.Model):
     user = models.ForeignKey(DpyUsers,on_delete=models.PROTECT)
     institute = models.ForeignKey(DpyInstitute, on_delete=models.PROTECT)
+    #Role=> 0:Owner, 1:Director/Dean/Principal, 2:HOD/Manager/Clerk, 3:Teacher, 4:Non-Teaching ,5:Office Associate, 6:House Keeping Staff, 7:Student
     role = models.PositiveSmallIntegerField()
+    type = models.PositiveSmallIntegerField(default=0)#1:student,2:teacher
     designation = models.CharField(max_length=100)
     date_of_joining = models.DateField(null=True)
     date_of_leaving = models.DateField(null=True)
@@ -111,8 +124,8 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 #     mobile = models.CharField(max_length=16, unique=True,null=True)
 #     password = models.CharField(max_length=100)
 #     image = models.ImageField(default='emp_default.png', blank=True)
-#     ENUMS = (("1", "admin"), ("2", "teacher"), ("3", "parent"), ("4", "student"), ("5", "transport_admin"), ("6", "driver"))
-#     type = models.CharField(max_length=20, choices=ENUMS)
+    # ENUMS = (("1", "admin"), ("2", "teacher"), ("3", "parent"), ("4", "student"), ("5", "transport_admin"), ("6", "driver"))
+    # type = models.CharField(max_length=20, choices=ENUMS)
 #     # type = models.CharField(max_length=15,choices=[(tag, tag.value) for tag in enums.EmployeeType])# Choices is a list of Tuple
 #     is_admin = models.PositiveSmallIntegerField(default=0)
 #     designation = models.CharField(max_length=100)

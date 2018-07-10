@@ -27,6 +27,9 @@ urlpatterns = [
     path('onboarding/', include('onboarding.urls')),
     path('auth/', include('login.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('attendence/', include('attendence.urls')),
+    path('fees_management/', include('fees_management.urls')),
+    path('manage_hr/', include('manage_hr.urls')),
     path('swagger/', get_swagger_view(title='API Docs'), name='api_docs')
 ]
 
