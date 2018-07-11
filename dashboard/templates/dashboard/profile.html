@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
   <!-- Page Heading Start-->
-  <div class="breadcrumbs">
+  <div class="breadcrumbs shadow-0">
     <div class="breadcrumbs-inner">
       <div class="row m-0">
         <div class="col-sm-4">
@@ -25,274 +25,193 @@
     </div>
   </div>
   <!-- Page Heading End-->
+ 
   <!-- Page Content Goes Here-->
-  <div class="content mt-3">
+  <div class="content mt-3" id="main_container" style="color: black !important">
+    <div class="row">
+      <!-- profile-widget -->
+      <div class="col-lg-12">
+        <div class="card profile-widget profile-widget-info" style="position: relative;">
+          <!-- <img class="my-img rounded-circle def-institute-logo" src="{{ user_info.institute.logo }}" alt="">
+          <img class="card-img-top" src="{{ user_info.institute.institute_image }}" alt="Card image cap"> -->
+          <!-- <h2 class="def-institute-name">{{ user_info.institute.name }}</h2> -->
+          <div class="card-body pl-0 pt-0 pb-0" style="position: relative;">
+            
 
-    <div class="col-md-10 tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
-        <div class="card col-md-12 col-sm-12" style="padding:0 0.5rem;">
-          <div class="card-body">
-            <h5 class="card-title text-primary">Update Personal Details</h5>
-            <p class="card-text">
-
-              <div class="row">
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-user" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type='text' id='id_first_name' placeholder='First Name' value="{{ user_info.user.first_name }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-user" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type='text' id='id_last_name' placeholder='Last Name' value="{{ user_info.user.last_name }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-user" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type='text' id='id_middle_name' placeholder='Middle Name' value="{{ user_info.user.middle_name }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-envelope" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type='text' id='id_email' placeholder='Email' value="{{ user_info.user.email }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-mobile" aria-hidden="true" style="padding: 0 0.7rem;"></i>
-                  </div>
-                  <input class="form-control" type='text' id='id_mobile' placeholder='Mobile' value="{{ user_info.user.mobile }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm my-custom-file">
-                  <div class="custom-file">
-                    <input class="custom-file-input" type="file" name="school_image" id="id_school_image">
-                    <label class="custom-file-label form-control custom-file-sm c-file-icon" for="id_school_image">Profile Image</label>
-                  </div>
-                </div>
-
+            <a style="position: absolute;right:1rem;top:0.0rem;"  class="btn text-primary rounded-circle mt-2 pull-right" data-toggle="tooltip" data-placement="left" title="Edit profile details." id="update_profile" onclick="document.getElementById('UpdatePersonalPanel').style.visibility= 'visible'; document.getElementById('main_container').style.opacity= '0.2';" ><i class="fa fa-pencil"></i></a>
+            <!-- href="{% url 'dashboard:profile_edit' %}" -->
+            <!-- onclick="document.getElementById('UpdatePersonalPanel').style.visibility= 'hidden'; document.getElementById('main_container').style.opacity= '1';" -->
+            <div class="col-lg-2 col-sm-2 p-0">
+              <div class="follow-ava">
+                <img class="my-img" src="/media/{{ request.user.image }}" alt="">
               </div>
+            </div>
 
-            </p>
-            <a href="#" class="btn btn-primary">Update</a>
+            <div class="col-lg-4 col-sm-4 follow-info">
+
+              <!-- <h4 class="text-primary">{{ request.user.get_short_name }}</h4> -->
+              <p class="mb-1"><i style="min-width:25px;text-align: center;" class="fa fa-envelope"></i><b style="width: 70px;display: inline-block;">Email</b>: {{ user_info.user.email }}</p>
+              <p class="mb-1"><i style="min-width:25px;text-align: center;" class="fa fa-mobile"></i><b style="width: 70px;display: inline-block;">Mobile</b>: {{ user_info.user.mobile }}</p>
+
+              <p class="mb-1">
+                <i style="min-width:25px;text-align: center;" class="fa fa-shield"></i><b style="width: 70px;display: inline-block;">Role</b>:
+                {% if user_info.role == 0 %} Admin {% endif %}
+                {% if user_info.role == 1 %} Principal {% endif %}
+                {% if user_info.role == 2 %} Trustee {% endif %}
+                {% if user_info.role == 3 %} Director {% endif %}
+                {% if user_info.role == 4 %} HOD(Head Of Department) {% endif %}
+                {% if user_info.role == 5 %} Owner {% endif %}
+              </p>
+
+              <!-- <h4 class="text-primary">{{ user_info.institute.name }}</h4> -->
+              <p class="mb-1"><i style="min-width:25px;text-align: center;" class="fa fa fa-building-o"></i><b style="width: 70px;display: inline-block;">Institute</b>: {{ user_info.institute.name }}</p>
+
+              <p class="mb-1"><i style="min-width:25px;text-align: center;" class="fa fa-phone-square"></i><b style="width: 70px;display: inline-block;">Contact</b>: {{ user_info.institute.contact }}</p>
+
+              <p class="mb-1"><i style="min-width:25px;text-align: center;" class="fa fa-address-card"></i><b style="width: 70px;display: inline-block;">Address</b>: {{ user_info.institute.address }}</p>
+            </div>
+
           </div>
-        </div><!-- End Card -->
-      </div><!-- End Tab Basic Details Tab -->
+        </div>
+      </div>
+      
 
-     <!-- Tab Admin Details Tab -->
-      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-        <div class="card col-md-12 col-sm-12" style="padding:0 0.5rem;">
-          <div class="card-body">
-            <h5 class="card-title text-primary">Update Admin Details</h5>
-            <p class="card-text">
-
-              <div class="row">
-
-                <div class="col-md-6 input-group input-group-sm form-group my-custom-select">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-user-circle" aria-hidden="true"></i>
-                  </div>
-                  <select class="custom-select custom-select-sm">
-                    <option value="" selected>Choose Role</option>
-                    <option {% if user_info.role == 0 %} selected {% endif %} value="0">Admin</option>
-                    <option {% if user_info.role == 1 %} selected {% endif %} value="1">Principal</option>
-                    <option {% if user_info.role == 2 %} selected {% endif %} value="2">Trustee</option>
-                    <option {% if user_info.role == 3 %} selected {% endif %} value="3">Director</option>
-                    <option {% if user_info.role == 4 %} selected {% endif %} value="4">HOD(Head Of Department)</option>
-                    <option {% if user_info.role == 5 %} selected {% endif %} value="5">Owner</option>
-                  </select>
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-id-card" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type='text' id='username' placeholder='Designation' value="{{ user_info.designation }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-calendar" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" id="id_date_of_joining" name="date_of_joining" placeholder="Date of Joining" value="{{ user_info.date_of_joining }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-calendar" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" id="id_date_of_leaving" name="date_of_leaving" placeholder="Date of Leaving" value="{{ user_info.date_of_leaving }}">
-                </div>
-
-              </div>
-
-            </p>
-            <a href="#" class="btn btn-primary">Update</a>
-          </div>
-        </div><!-- End Card -->
-      </div><!-- End Tab Admin Details Tab -->
-
-      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-        <div class="card col-md-12 col-sm-12" style="padding:0 0.5rem;">
-          <div class="card-body">
-            <h5 class="card-title text-primary">Update Admin Details</h5>
-            <p class="card-text">
-
-              <div class="row">
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-university" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" name="name" maxlength="100" required="" id="id_name" placeholder="Institute Name" value="{{ user_info.institute.name }}">
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-envelope" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="email" name="institute_email" maxlength="100" required="" id="id_institute_email" placeholder="Email" value="{{ user_info.institute.email }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-phone-square" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" name="contact" id="id_contact" placeholder="Contact" value="{{ user_info.institute.contact }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-graduation-cap" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" name="board" maxlength="100" required="" id="id_board" placeholder="Board" value="{{ user_info.institute.board }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group my-custom-select">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-graduation-cap" aria-hidden="true"></i>
-                  </div>
-                  <select class="custom-select custom-select-sm">
-                    <option value="" selected="">Choose Nature</option>
-                    <option {% if user_info.institute.nature == 1 %} selected {% endif %} value="1">School</option>
-                    <option {% if user_info.institute.nature == 2 %} selected {% endif %} value="2">College</option>
-                  </select>
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-university" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" name="university" maxlength="100" id="id_university" placeholder="University" value="{{ user_info.institute.university }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-address-card" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" name="address" maxlength="110" required="" id="id_address" placeholder="Address" value="{{ user_info.institute.address }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-map-signs" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" name="city" maxlength="20" id="id_city" placeholder="City" value="{{ user_info.institute.city }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-map-pin" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="number" name="pin_code" required="" id="id_pin_code" placeholder="code" value="{{ user_info.institute.pin_code }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm form-group">
-                  <div class="input-group-prepend">
-                    <i class="input-group-text fa fa-map-marker" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" type="text" name="state" maxlength="20" id="id_state" placeholder="State" value="{{ user_info.institute.state }}">
-                </div>
-                
-                <div class="col-md-6 input-group input-group-sm my-custom-file">
-                  <div class="custom-file">
-                    <input class="custom-file-input" type="file" name="institute_image" id="id_institute_image">
-                    <label class="custom-file-label form-control custom-file-sm c-file-icon" for="id_institute_image">Institute Image</label>
-                  </div>
-                </div>
-
-                <div class="col-md-6 input-group input-group-sm my-custom-file">
-                  <div class="custom-file">
-                    <input class="custom-file-input" type="file" name="institute_image" id="id_institute_image">
-                    <label class="custom-file-label form-control custom-file-sm c-file-icon" for="id_institute_image">Institute Logo</label>
-                  </div>
-                </div>  
-
-              </div>
-
-            </p>
-            <a href="#" class="btn btn-primary">Update</a>
-          </div>
-        </div><!-- End Card -->        
-      </div><!-- End Tab Institute Details Tab -->
-
-      <div class="tab-pane fade" id="v-pills-security" role="tabpanel" aria-labelledby="v-pills-security-tab">
-        <div class="card col-md-6 col-sm-12" style="padding:0 0.5rem;">
-          <div class="card-body">
-            <h5 class="card-title text-primary">Update Password</h5>
-
-            <div class="row">
-              
-              <div class="col-md-12 input-group input-group-sm form-group">
-                <div class="input-group-prepend">
-                  <i class="input-group-text fa fa-unlock-alt" aria-hidden="true"></i>
-                </div>
-                <input class="form-control" type="password" name="name" id="id_old_password" placeholder="Old Passowrd">
-              </div>
-
-              <div class="col-md-12 input-group input-group-sm form-group">
-                <div class="input-group-prepend">
-                  <i class="input-group-text fa fa-lock" aria-hidden="true"></i>
-                </div>
-                <input class="form-control" type="password" name="name" id="id_password" placeholder="New Passowrd">
-              </div>
-
-              <div class="col-md-12 input-group input-group-sm form-group">
-                <div class="input-group-prepend">
-                  <i class="input-group-text fa fa-lock" aria-hidden="true"></i>
-                </div>
-                <input class="form-control" type="password" name="institute_email" id="id_password2" placeholder="Repeat Password">
-              </div>
-            </div><!-- End Card Row -->
-
-            <a href="#" class="btn btn-primary">Update</a>
-          </div>
-        </div><!-- End Card -->        
-      </div><!-- End Tab Security Tab -->
-
-    </div>
-
-    <div class="col-md-2 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Personal Details</a>
-      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Admin Details</a>
-      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Institute Details</a>
-      <a class="nav-link" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-security" role="tab" aria-controls="v-pills-security" aria-selected="false">Security</a>
     </div>    
-
-
   </div>
+   <div> 
+          <style type="text/css" scoped>
+              input {
+              /*padding: 4px 10px;*/
+              /*width: 55%;*/
+              width: 300px;
+              color: black;
+              /*margin-bottom: 10px;*/
+              }
+
+              
+              </style>
+                  <div class="overlay" id="UpdatePersonalPanel" style="visibility: hidden; position: absolute;width: 685px;height: auto;z-index: 1035;top: 100px;left: 390.5px; background-color: white; float: center; color: black">
+                      <div class="close" onclick="document.getElementById('UpdatePersonalPanel').style.visibility= 'hidden'; document.getElementById('main_container').style.opacity= '1';">x</div>
+
+                      <label>Email:</label>
+                      <input  class="form-control" type="text" name="user_email" id="id_user_email" placeholder="Email" value="{{ user_info.user.email }}">
+                      
+                      <label>Mobile:</label>
+                      <input  class="form-control" type="text" name="user_mobile" id="id_user_mobile" placeholder="Mobile" value="{{ user_info.user.mobile }}">
+                        
+                        <!-- style="border:1px solid #ddd; width: 65%;height: 42px; display: -webkit-inline-box; margin-left: 30px" -->
+                      <label>Role:</label>
+                       <select id="id_role" name="role" required select class="disabled_toggle form-control" >
+                            <option value="" selected disabled>Role</option>
+                            <option value="0" {% if user_info.role == 0 %} selected {% endif %} >Admin</option>
+                            <option value="1" {% if user_info.role == 1 %} selected {% endif %} >Principal</option>
+                            <option value="2" {% if user_info.role == 2 %} selected {% endif %} >Trustee</option>
+                            <option value="3" {% if user_info.role == 3 %} selected {% endif %} >Director</option>
+                            <option value="4" {% if user_info.role == 4 %} selected {% endif %} >HOD</option>
+                            <option value="5" {% if user_info.role == 5 %} selected {% endif %} >Owner</option>
+                          </select>
+                          <br><br>
+
+                      <label>Institute Name:</label>
+                      <input  class="form-control" type="text" name="institute_name" id="id_inst_name" placeholder="Institute Name" value="{{ user_info.institute.name }}">
+                    
+                      <label>Contact:</label>
+                      <input  class="form-control" type="text" name="contact" id="id_inst_contact" placeholder="Contact" value="{{ user_info.institute.contact }}">
+                        
+                      
+                      <label>Adress:</label>
+                      <input  class="form-control" type="text" name="contact" id="id_inst_address" placeholder="Address" value="{{ user_info.institute.address }}">
+                      <br>
+                   <div style="float: right;margin-right: 20px">
+                    <span style="cursor: pointer;">
+                      <a id="save" style="color: #467bff">
+                      <i class="fa fa-check-square-o">save</i></a>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;
+                    <span style="cursor: pointer;">
+                      <a id="cancel" style="color: #467bff" onclick="document.getElementById('UpdatePersonalPanel').style.visibility= 'hidden'; document.getElementById('main_container').style.opacity= '1';">
+                      <i class="fa fa-times-circle">cancel</i></a>
+                    </span>
+                    </div> 
+                  </div>
+
+
+                  <style type="text/css">
+                    .overlay {
+                      background: white;
+                      padding: 13px;
+                      left: 150px;
+                      color:white;
+                      position: relative;
+                      box-shadow: 1px 12px 43px -5px black;
+                      opacity: 1;
+                      border-radius: 9px;    
+                      margin: -41% 3% 3% 3%;
+                      transition: margin 2s ease;
+                      animation: animate 0.8s forwards;
+                      transition-duration: 2s;
+
+                     }
+
+                  .green{
+                  background:green;
+                  }
+
+                  @keyframes animate {
+                      0%   {opacity: 0.85;margin: -26% 3% 3% 3%;}
+                      
+                      25%  {opacity: 0.89;margin: 1% 3% 3% 3%}
+                      
+                      60%  {opacity: 0.89;margin: 2% 3% 3% 3%}
+                      
+                      100% {opacity: 0.98;margin: 3% 3% 3% 3%}
+                  }
+                        </style>
+
+
+                <script type="text/javascript">
+               $("#save").click(function(){
+              
+                      var url = "{% url 'dashboard:update_profile' %}";
+                      var formData = [];
+                      formData.push({{ user_info.user.id }});
+                      formData.push($("#id_user_email").val());
+                      formData.push($("#id_user_mobile").val());
+                      formData.push($("#id_role").val());
+                      formData.push({{ user_info.institute.id }});
+                      formData.push($("#id_inst_name").val());
+                      formData.push($("#id_inst_contact").val());
+                      formData.push($("#id_inst_address").val());
+                      console.log(formData)
+                      var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                        $.ajax({
+                        type: "post",
+                        url: url,
+                        csrftoken:csrftoken,
+                        data:{
+                          'formData' : formData,
+                        },
+                        success: function(response) {
+                          console.log(response);
+                          alert("successfully updated.");
+                          location.reload();
+                        },
+                        error: function(response) {
+                          console.log(response);
+                          alert("Make sure you are entering unique data.")
+                        }
+
+                      });
+            });
+                </script>
+              </div>
+
   <script>
-  var picker = new Pikaday({field: document.getElementById('id_date_of_joining'),format: 'YYYY-MM-DD'});
-  var picker = new Pikaday({field: document.getElementById('id_date_of_leaving'),format: 'YYYY-MM-DD'});
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+      animation:false,
+    });
+  });
   </script>
   <!-- Content End -->
 {% endblock %}

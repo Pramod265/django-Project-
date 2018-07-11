@@ -1,21 +1,23 @@
 {% load static from staticfiles %}
 {% include 'header.html' %}
   <script>
+
   var g_urls = {
     'login': '{% url "login:rest_login" %}?next={% url "dashboard:home" %}',
     'logout': '{% url "login:rest_logout" %}',
   };
   </script>
-  <script src="{% static 'js/auth.js' %}"></script>
+  <script src="{% static 'js/dpy_auth.js' %}"></script>
+
 
 <!-- Left Panel -->
   <aside id="left-panel" class="left-panel">
-    <nav class="navbar navbar-expand-sm navbar-default">
+    <nav class="navbar navbar-expand-sm">
       <div class="navbar-header">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa fa-bars"></i>
         </button>
-        <a class="navbar-brand" href="https://www.digimkey.com"><span style="color: #dadada;">DIGIM</span><span style="color: #ea4235;">KEY</span></a>
+        <a class="navbar-brand" href="{% url 'dashboard:home' %}"><span style="color: #dadada;">DIGIM</span><span style="color: #ea4235;">KEY</span></a>
         <a class="navbar-brand hidden" href="https://www.digimkey.com"><span style="color: #dadada;">D</span></a>
       </div>
       <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -25,31 +27,57 @@
           </li>
           <h3 class="menu-title">Profile</h3><!-- /.menu-title -->
           <li class="menu-item-has-children dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Students</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Students</a>
             <ul class="sub-menu children dropdown-menu">
-              <li><i class="fa fa-puzzle-piece"></i><a href="#">Add Student</a></li>
+              <li><i class="fa fa-address-card"></i><a href="{% url 'dashboard:view_students' %}">View Student</a></li>
+              <li><i class="fa fa-puzzle-piece"></i><a href="{% url 'onboarding:addstudent' %}">Add Student</a></li>
               <li><i class="fa fa-upload"></i><a href="{% url 'dashboard:bulk_upload' %}">Bulk Upload</a></li>
             </ul>
           </li>
           <li class="menu-item-has-children dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Teacher</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user-circle-o"></i>Teacher</a>
             <ul class="sub-menu children dropdown-menu">
-              <li><i class="fa fa-table"></i><a href="tables-basic.html">Add Teacher</a></li>
+              <li><i class="fa fa-puzzle-piece"></i><a href="tables-basic.html">Add Teacher</a></li>
             </ul>
           </li>
           <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Class</a>
             <ul class="sub-menu children dropdown-menu">
-              <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Add Class</a></li>
+              <li><i class="menu-icon fa fa-puzzle-piece"></i><a href="forms-basic.html">Add Class</a></li>
             </ul>
           </li>
           <li class="menu-item-has-children dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Fee Management</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-calendar-check-o"></i>Attendence</a>
             <ul class="sub-menu children dropdown-menu">
-              <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Add Fee</a></li>
-              <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">View Fee</a></li>
+              <li><i class="menu-icon fa fa-calendar"></i><a href="forms-basic.html">View Attendence</a></li>
+              <li><i class="menu-icon fa fa-calendar-plus-o"></i><a href="{% url 'attendence:take_attendence' %}">Take Attendence</a></li>
             </ul>
           </li>
+          <h3 class="menu-title">Services</h3><!-- /.menu-title -->
+          <li class="menu-item-has-children dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-money"></i>Fee Management</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-puzzle-piece"></i><a href="{% url 'fees_management:add_fee' %}">Add Fee</a></li>
+              <li><i class="menu-icon fa fa-th"></i><a href="{% url 'fees_management:fee_types' %}">Fee Types</a></li>
+              <li><i class="menu-icon fa fa-puzzle-piece"></i><a href="{% url 'fees_management:pay' %}">Pay</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-briefcase"></i>HR Management</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-user-plus"></i><a href="{% url 'manage_hr:home' %}">Add Employee</a></li>
+              <li><i class="menu-icon fa fa-users"></i><a href="forms-advanced.html">View Employee</a></li>
+              <li><i class="menu-icon fa fa-users"></i><a href="{% url 'manage_hr:leave' %}">apply Leave</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Admission Management</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">New Admission</a></li>
+            </ul>
+          </li>
+
+
           <h3 class="menu-title">Report</h3><!-- /.menu-title -->
           <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Report 1</a>
@@ -57,24 +85,10 @@
               <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">View Report 1</a></li>
             </ul>
           </li>
-          <li>
-            <a href="widgets.html"> <i class="menu-icon ti-email"></i>Attendance Report </a>
-          </li>
-          <li class="menu-item-has-children dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Report 2</a>
-            <ul class="sub-menu children dropdown-menu">
-              <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">View Report 2</a></li>
-            </ul>
-          </li>
-          <li class="menu-item-has-children dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Report 3</a>
-            <ul class="sub-menu children dropdown-menu">
-              <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">View Report 3</a></li>
-            </ul>
-          </li>
+          
           <h3 class="menu-title">Event</h3><!-- /.menu-title -->
           <li class="menu-item-has-children dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>SMS</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Notifications</a>
             <ul class="sub-menu children dropdown-menu">
               <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
               <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
@@ -88,15 +102,28 @@
   <!-- Left Panel -->
 
   <!-- Right Panel -->
-  <div id="right-panel" class="right-panel">
+  <div id="right-panel" class="right-panel" style="font-family: sans-serif !important">
     <!-- Header-->
+    
+    <div class="notification" style="z-index: 1000"></div>
+    <script type="text/javascript">
+      $('.overlay').appendTo(".notification");
+    $(document).on('click', '.overlay', function () { $(this).remove(); });
+    </script>
+
+
     <header id="header" class="header">
-      <div class="header-menu">
-          <div id="google_translate_element"></div><script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'bn,en,gu,hi,ml,mr,pa,sd,si,ta,ur', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                  <div class="header-menu">
+                  <div id="google_translate_element" class="skiptranslate"></div><script type="text/javascript">
+                    function googleTranslateElementInit() {
+                      new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'bn,en,gu,hi,ml,mr,pa,sd,si,ta,ur', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                    }
+                    </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    <style>
+                       .skiptranslate {
+                        /*font-size: 35px !important;*/
+                        }    
+                    </style>
         <div class="col-sm-7">
           <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
           <div class="header-left">
@@ -128,7 +155,7 @@ function googleTranslateElementInit() {
                 </a>
               </div>
             </div>
-            <div class="dropdown for-message">
+            <!-- <div class="dropdown for-message">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-envelope-o"></i>
                   <span class="count bg-primary">9</span>
@@ -167,22 +194,33 @@ function googleTranslateElementInit() {
                           <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </div>
                   </a>
-
               </div>
-            </div>
+            </div> -->
           </div>
+
         </div>
+
         <div class="col-sm-5">
           <div class="user-area dropdown float-right">
-            <span style="line-height:40px;margin:0 1rem;">Welcome {{ request.user.get_short_name }}</span>
+            <span style="line-height:40px;margin:0 1rem;">{{ request.user.first_name }}</span>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img class="user-avatar rounded-circle" src="/media/emp_default.png" alt="User Avatar">
+              <img class="user-avatar rounded-circle" src="/media/{{request.user.image}}" alt="User Avatar">
             </a>
             <div class="user-menu dropdown-menu">
               <a class="nav-link" href="{% url 'dashboard:profile' %}"><i class="fa fa-user"></i>My Profile</a>
               <a class="nav-link" href="#"><i class="fa fa-user"></i>Notifications <span class="count">13</span></a>
+              <a class="nav-link" href="#"><i class="fa fa fa-bullhorn"></i>Membrship plan</a>
+              <a class="nav-link" href="#"><i class="fa fa fa-credit-card"></i>Validity</a>
+              <a class="nav-link" href="#"><i class="fa fa fa-credit-card-alt"></i>Pay Now</a>
+              <a class="nav-link" href="#"><i class="fa fa fa-comments"></i>FAQ's</a>
+              <a class="nav-link" href="#"><i class="fa fa fa-money"></i>refer & earn </a>
+              <a class="nav-link" href="{% url 'dashboard:reset_profile' %}"><i class="fa fa fa-plug"></i>Reset profile </a>
+              <a class="nav-link" href="#"><i class="fa fa fa-bullhorn"></i>Feedback</a>
+              <a class="nav-link" href="{% url 'dashboard:update_password'%}"><i class="fa fa fa-gears"></i>Change Password</a>
               <a class="nav-link" href="#"><i class="fa fa-cog"></i>Settings</a>
-              <a class="nav-link btn-logout" href="#"><i class="fa fa-power-off"></i>Logout</a>
+              <a class="nav-link" href="#"><i class="fa fa fa-question-circle"></i>Help</a>
+              <a class="nav-link" href="#"><i class="fa fa fa fa-newspaper-o"></i>About us</a>
+              <a class="nav-link btn-logout" href="{% url 'login:rest_logout' %}"><i class="fa fa-power-off"></i>Logout</a>
             </div>
           </div>
           <div class="language-select dropdown" id="language-select">
