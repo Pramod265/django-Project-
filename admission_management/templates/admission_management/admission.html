@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!-- 
+    <style type="text/css">
+        input {
+            border: none !important;
+            border-bottom: 1px solid green !important;
+        }
+
+    </style>
+ -->
+<div style="display: inline-block;margin-bottom: -20px;">
+<a class="btn-floating waves-effect waves-light title-back-btn" onclick="window.history.back();" onmouseover="" style="cursor: pointer;display: inline-block;">
+            <img src="/media/icons8-left-64.png" style="height: 45px;width: 45px; margin-bottom:5px;">
+        </a>
+
+        <span class="grey-text text-darken-2" style="font-size: 1.64rem;line-height: 52px; margin-left: 50px;">Add Admission</span>
+</div>
+
+<hr>
+
+
+<div class="container-fluid">
+<div class="col s12 active">
+      <div class="card grey lighten-5">
+          <div class="card-content" style="padding:5px 24px;">
+            <div class="row">
+              <form class="col s12" style="padding:0;">
+
+
+    <span><h3>Aplicant's Info</h3></span>
+        <div class="row">
+            <div class="col-sm-4" >
+                <label for="email">First Name</label></label>
+                <input type="email" class="form-control" id="name" placeholder="Enter Name" >
+            </div>
+            
+            <div class="col-sm-4" >
+                <label for="pwd">Middle Name</label>
+                <input type="password" class="form-control" id="middle_name" placeholder="Enter Middle Name" >
+            </div>
+
+            <div class="col-sm-4" >
+                <label for="pwd">Last Name</label>
+                <input type="password" class="form-control" id="last_name" placeholder="Enter Last Name" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="email">Date of Birth</label></label>
+                <div class="input-group-prepend" style="width: 100%;">
+                    <!-- <i class="input-group-text fa fa-calendar" style="font-size: 1.875rem;padding: .25rem .5rem;line-height: 0.5;" aria-hidden="true"></i> -->
+                         <input placeholder="Date Of Birth..." oninput="this.className = ''" class="form-control" name="date_of_birth" id="date_of_birth" type="date" style="width: 340px" >
+                   </div>
+                <!-- <input type="dob" class="form-control" id="dob" placeholder="Enter DOB" > -->
+            </div>
+                
+            <div class="col-sm-6" >
+                    <label for="category">Select Gender</label>
+                <select class="custom-select">
+                    <option value="" selected disabled>Gender</option>
+                    <option name="cycle" value="1">Male</option>
+                    <option value="2" name="cycle">Female</option>
+
+                </select>
+            </div>    
+    
+            <div class="col-sm-6" >
+                <label for="pwd">Applicant's Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" >
+            </div>
+                
+            <div class="col-sm-6" >
+                <label for="email">Applicant's Phone No</label></label>
+                <input type="phone" class="form-control" id="phone" placeholder="Enter Phone" >
+            </div>
+                    
+            <div class="col-sm-6" >
+                <label for="caste">Caste</label>
+                <input type="text" class="form-control" id="gender" placeholder="Enter Caste" >
+            </div>
+        
+            <div class="col-sm-6" >
+                <label for="nationality">Nationality</label>
+                <input type="text" class="form-control" id="email" placeholder="Select Nationality" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="caste">Aadhar No</label>
+                <input type="text" class="form-control" id="aadhar" placeholder="Enter Aadhar No" >
+            </div>
+        
+            <!-- <div class="col-sm-6" >
+                <label for="nationality">Select Category</label>
+                <input type="text" class="form-control" id="email" placeholder="Select Nationality" >
+            </div> -->
+            <div class="col-sm-6" >
+                    <label for="category">Select Category</label>
+                <select class="custom-select">
+                    <option value="" selected disabled>Cycle</option>
+                    <option name="cycle" value="1">Genral</option>
+                    <option value="2" name="cycle">Obc</option>
+
+                </select>
+            </div>
+
+            <div class="col-sm-12" >
+                <label for="add">Address</label>
+                <input type="text-area" class="form-control" id="add" placeholder="Local Address" >
+            </div>
+
+            <div class="col-sm-12" >
+                <label for="add">Address</label>
+                <input type="text-area" class="form-control" id="add" placeholder="Permanent Address" >
+            </div>
+        </div>
+        <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!--#########################################################################################################Parents Info#########################################################################################################################-->
+       
+
+<div style="padding: 10px 10px;margin: 20px 28px; background-color: white;    position: relative;display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;">
+
+        <h3>Parent's Info</h3>
+        <div class="row">
+            <div class="col-sm-6" >
+                <label for="father name">Father's Name</label>
+                <input type="text" class="form-control" id="email" placeholder="Enter Father Name" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="caste">Mother's Name</label>
+                <input type="text" class="form-control" id="aadhar" placeholder="Enter Mother Name" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="caste">Parent/Guardians Phone No</label>
+                <input type="text" class="form-control" id="aadhar" placeholder="Enter Parent/Guardians Phone No" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="caste">Parent/Guardians email</label>
+                <input type="text" class="form-control" id="aadhar" placeholder="Enter Parent/Guardians email" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="caste">Parent's Occupation</label>
+                <input type="text" class="form-control" id="aadhar" placeholder="Enter Parent's Occupation" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="caste">Annual Income</label>
+                <input type="text" class="form-control" id="aadhar" placeholder="Enter Parent's Occupation" >
+            </div>
+
+            <div class="col-sm-12" >
+                <label for="caste">Select Cource</label>
+                <select class="custom-select">
+                    <option value="" selected disabled>Cource</option>
+                    <option name="cycle" value="1">Cource Name</option>
+                    <option value="2" name="cycle">Cource Name</option>
+                </select>    
+            </div>
+        </div>
+    </div>
+
+        <div style="padding: 10px 10px;margin: 20px 28px; background-color: white;    position: relative;display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;">
+
+
+        <span><h3>Result of Last Exam</h3></span>
+        <div class="row">
+
+            <div class="col-sm-6" >
+                <label for="caste">College Name</label>
+                <input type="" class="form-control" id="aadhar" placeholder="Enter College Name" >
+            </div>
+
+            <div class="col-sm-6" >
+                <label for="caste">Name Board/University</label>
+                <input type="" class="form-control" id="aadhar" placeholder="Name Of Board/University" >
+            </div>
+
+            <div class="col-sm-4" >
+                <label for="caste">Seat No</label>
+                <input type="" class="form-control" id="aadhar" placeholder="Enter Seat No" >
+            </div>
+
+            <div class="col-sm-4" >
+                <label for="caste">Select Month</label>
+                    <select class="custom-select">
+                        <option value="" selected disabled>Select Month</option>
+                        <option name="cycle" value="1">Jan</option>
+                        <option value="2" name="cycle">Feb</option>
+                        <option value="2" name="cycle">March</option>
+                        <option value="2" name="cycle">April</option>
+                        <option value="2" name="cycle">May</option>
+                        <option value="2" name="cycle">June</option>
+                        <option value="2" name="cycle">July</option>
+                        <option value="2" name="cycle">Aug</option>
+                        <option value="2" name="cycle">Sep</option>
+                        <option value="2" name="cycle">Oct</option>
+                        <option value="2" name="cycle">Nov</option>
+                        <option value="2" name="cycle">Dec</option>
+                    </select>    
+                </div>
+
+            <div class="col-sm-4" >
+                <label for="caste">Select Year</label>
+                    <select class="custom-select">
+                        <option value="" selected disabled>Select Year</option>
+                        <option name="cycle" value="1"></option>
+                        <option value="2" name="cycle"></option>
+                    </select>    
+            </div>
+
+            <div class="col-sm-3" >
+                    <label for="caste">Marks Scored</label>
+                    <input type="" class="form-control" id="aadhar" placeholder="Enter Marks" >
+            </div>  
+            
+            <div class="col-sm-3" >
+                    <label for="caste">Total Marks</label>
+                    <input type="" class="form-control" id="aadhar" placeholder="Enter total Marks" >
+            </div>  
+            
+            <div class="col-sm-3" >
+                   <label for="caste">Percentage</label>
+                   <input type="" class="form-control" id="aadhar" placeholder="Enter Percentage" >
+            </div>
+
+            <div class="col-sm-3" >
+                    <label for="caste">Select Grade</label>
+                        <select class="custom-select">
+                            <option value="" selected disabled>Select Grade</option>
+                            <option name="cycle" value="1"></option>
+                            <option value="2" name="cycle"></option>
+                        </select>    
+            </div>
+            
+
+    
+              
+    
+    <!-- <form class="form-inline" action="/action_page.php">
+      <label for="email">First Name</label>
+      <input type="email" class="form-control" id="name" placeholder="Enter Name" >
+      <label for="pwd">Middle Name</label>
+      <input type="password" class="form-control" id="middle_name" placeholder="Enter Middle Name" >
+      <label for="pwd">Last Name</label>
+      <input type="password" class="form-control" id="last_name" placeholder="Enter Last Name" >
+      <!-- <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" name="remember"> Remember me
+        </label>
+      </div> -->
+    
+    
+  </div>
+
+  <center><button type="submit" class="btn btn-primary m-3 ">Submit</button></center>
+  </div>    
+{% endblock %}

@@ -1,0 +1,259 @@
+{% extends 'base.html' %} {% block title %} Apply Leave {% endblock %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'hr_style.css'%}">
+<style>
+    .in-feilds {
+        display: inline-grid;
+        margin: 2%;
+    }
+
+    .multiselect {
+        width: 200px;
+    }
+
+    .selectBox {
+        position: relative;
+        border: none;
+        padding: 7px;
+        border-radius: 0 8px 8px 0px;
+        background: white;
+        color: #757479;
+    }
+
+    .selectBox select {
+        width: 100%;
+        font-weight: bold;
+        border: none;
+        padding: 7px;
+        border-radius: 0 8px 8px 0px;
+        background: white;
+        color: #757479;
+    }
+
+    .overSelect {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .main {
+        display: block !important;
+    }
+
+
+    #checkboxes {
+        display: none;
+        position: absolute;
+        border: 1px #dadada solid;
+        width: 200px;
+        border: none;
+        padding: 7px;
+        border-radius: 8px;
+        box-shadow: 1px 1px 20px -10px;
+        background: white;
+        color: #757479;
+    }
+
+    #checkboxes label {
+        display: block;
+        padding: 3px;
+    }
+
+    table.table {
+        margin: 3% 15% 0% 0%;
+        box-shadow: 1px 1px 20px -8px;
+    }
+
+    td,
+    tr {
+        padding: 2%;
+    }
+
+    #checkboxes label:hover {
+        background-color: #757479;
+        color: #fff;
+    }
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+<div class="data-head">
+    <span>Generate Salary Pay Slip</span>
+</div>
+<div class="data">
+    <div class="in-feilds">
+        <span style="display:inline-flex; margin-bottom:2px; font-size: 11px;">Employee</span>
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-user"></i>
+            </span>
+
+            <select id="employee" class="input">
+                <optgroup>
+                    {% for user in data %}
+                    <option data-id={{user.id}} value={{user.first_name}}>{{user.first_name}}</option>
+                    {% endfor %}
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    <!-- <div class="in-feilds">
+        <span style="display:inline-flex; margin-bottom:2px; font-size: 11px;">Select Month</span>
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-plane-departure"></i>
+            </span>
+            <div class="multiselect">
+                <div class="selectBox">
+                    <select>
+                        <option>Select an option</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes">
+                    {% for month in months %}
+                    <label for="one">
+                        <input name="month" type="checkbox" data-id={{month}} />{{month}}</label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="in-feilds">
+        <span style="display:inline-flex; margin-bottom:2px; font-size: 11px;">Select Month</span>
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-plane-departure"></i>
+            </span>
+
+            <select id="months" class="input">
+                <optgroup>
+                    {% for month in months %}
+                    <option value={{forloop.counter}}>{{month}}</option>
+                    {% endfor%}
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    <div class="in-feilds">
+        <span style="display:inline-flex; margin-bottom:2px; font-size: 11px;">Select Year</span>
+        <div class="input-feilds">
+            <span class="fa-icons">
+                <i class="fas fa-plane-departure"></i>
+            </span>
+
+            <select id="years" class="input">
+                <optgroup>
+                    {% for i in range %}
+                    <option value={{i}}>{{i}}</option>
+                    {% endfor%}
+                </optgroup>
+            </select>
+        </div>
+    </div>
+    <div class="buttons">
+        <div class="generate">
+            <span style="display:inline-flex; margin-bottom:2px; ">Generate</span>
+            <i class="fas fa-cogs"></i>
+        </div>
+        <div class="generate" onclick="printDiv('slip')">
+            <span style="display:inline-flex; margin-bottom:2px; ">Print</span>
+            <i class="fas fa-print"></i>
+        </div>
+    </div>
+</div>
+<div class="data">
+    <div class="slip" id="slip">
+
+    </div>
+</div>
+<script>
+    var year, month;
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+    var checkboxes = document.getElementById("checkboxes");
+    $('.selectBox').click(function () {
+        $(checkboxes).toggleClass("main");
+    });
+
+    $("select#employee").change(function () {
+        employee = $("#employee option:selected").val();
+    });
+    $("select#years").change(function () {
+        year = $("#years option:selected").val();
+        console.log(year);
+    });
+    $("select#months").change(function () {
+        month = $("#months option:selected").val();
+        console.log(month);
+    });
+
+
+    $('.generate').click(function () {
+
+        empid = $("#employee option:selected").attr("data-id");
+        var data = [];
+
+        data.push(empid, month, year);
+        $.ajax({
+            url: 'structure/',
+            type: 'POST',
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            enctype: "multipart/form-data",
+            data: {
+                'studentData': data,
+            },
+            dataType: 'json',
+            success: function (data) {
+                name = data.name;
+                bs = parseInt(data.bs);
+                hra = parseInt(data.hra);
+                ta = parseInt(data.ta);
+                da = parseInt(data.da);
+                med = parseInt(data.med);
+                bonus = parseInt(data.bonus);
+                spal = parseInt(data.spal);
+                others = parseInt(data.others);
+                tds = parseInt(data.tds);
+                pt = parseInt(data.pt);
+                pf = parseInt(data.pf);
+                console.log(name, bs, hra, ta, da, med, bonus, spal, others, tds, pt, pf);
+                totalearn = bs + hra + ta + da + med + bonus + spal + others;
+                totaldeduction = tds + pt + pf;
+                net_amount = totalearn - totaldeduction;
+                var slip = "<div><h2>Institue Name</h2><span>Institue Address</span>";
+                slip += "<div><span>Name:" + name + "</span></div>";
+                slip += "<div style='display:flex;'><table class='table'><tr><th>Earnings</th><th></th></tr>";
+                slip += "<tr><td>Basic</td><td>" + bs + "</td></tr>";
+                slip += "<tr><td>HRA</td><td>" + hra + "</td></tr>";
+                slip += "<tr><td>TA</td><td>" + ta + "</td></tr>";
+                slip += "<tr><td>DA</td><td>" + da + "</td></tr>";
+                slip += "</table>";
+                slip += "<div style='display:flex;'><table class='table'><tr><th>Deductions</th><th></th></tr>";
+                slip += "<tr><td>TDS</td><td>" + tds + "</td></tr>";
+                slip += "<tr><td>PT</td><td>" + pt + "</td></tr>";
+                slip += "<tr><td>PF</td><td>" + pf + "</td></tr>";
+                slip += "</table>";
+                slip += "<table class='table'>";
+                slip += "<tr><td><b>Gross</b></td><td>" + totalearn + "</td></tr>";
+                slip += "<tr><td><b>Total Deduction</b></td><td>" + totaldeduction + "</td></tr>";
+                slip += "</table></div>";
+                slip += "</div>";
+                slip += "<div><table class='table'>";
+                slip += "<tr><td><b>Net Salary</b></td><td>" + net_amount + "</td></tr>";
+                slip += "</table></div></div>";
+
+
+                $('.slip').html(slip);
+            }
+        });
+    });
+</script> {% endblock %}

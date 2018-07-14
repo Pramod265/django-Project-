@@ -2269,27 +2269,27 @@ body{
 }
 
 .alert-danger {
-  color: white;
-  background-color: #DA4453;
+  color: white !important;
+  background-color: #DA4453 !important;
 }
 .alert-success {
-  color: white;
-  background-color: #37BC9B;
+  color: white !important;
+  background-color: #37BC9B !important;
 }
 .alert-primary {
-  color: white;
-  background-color: #4A89DC;
+  color: white !important;
+  background-color: #4A89DC !important;
 }
 .alert-warning {
-  color: white;
-  background-color: #F6BB42;
+  color: white !important;
+  background-color: #F6BB42 !important;
 }
 .alert-info {
-  color:white;
-  background-color: #17A2B8;
+  color:white !important;
+  background-color: #17A2B8 !important;
 }
 .alert-classic {
-  color:white;
+  color:white !important;
   background-color:rgba(0, 0, 0, 0.8196078431372549);
 }
 
