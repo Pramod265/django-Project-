@@ -23,10 +23,15 @@ from login import views as login_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('', login_views.login_view, name='login_view'),
     path('onboarding/', include('onboarding.urls')),
     path('auth/', include('login.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('attendence/', include('attendence.urls')),
+    path('fees_management/', include('fees_management.urls')),
+    path('admission_management/', include('admission_management.urls')),
+    path('manage_hr/', include('manage_hr.urls')),
     path('swagger/', get_swagger_view(title='API Docs'), name='api_docs')
 ]
 

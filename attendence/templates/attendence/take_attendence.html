@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div style="margin-bottom: -20px">
+	<div class="" style="margin-left: 10px">
+    <a class="btn-floating waves-effect waves-light title-back-btn" onclick="window.history.back();" onmouseover="" style="cursor: pointer;">
+      <img src="/media/icons8-left-64.png" style="height: 45px;width: 45px; margin-bottom:5px;">  </a>
+     <span class="grey-text text-darken-2" style="font-size: 1.64rem;line-height: 52px; margin-left: 50px;">Take Attendence</span>
+    </div>
+  
+</div>
+<hr>
+         
+      <div class="col s12 m12 l12 padding-right-0 " style="padding-bottom:10%;">
+
+    <div class="table">
+        <div class="card grey lighten-5 card_align_left">
+          <div class="card-content white-text list_view">
+            <!--Student list view-->
+            	
+            	<div>
+            	
+            	<form action="{% url 'attendence:take_attendence' %}" method="post" enctype="multipart/form-data">
+            				<select id="id_class" name="student_class" required select class="disabled_toggle form-control" >
+                            <option value="" selected disabled>Class</option>
+                            {% for class in section_class %}
+			            	<option value="{{class}}">{{class}}</option>
+			            	{% endfor %}
+                          	</select>
+
+                          	<input type="submit" name="submit" value="take" id="take">
+                 </form>
+                 <script type="text/javascript">
+             
+                 </script>
+            	</div>
+            
+
+
+              {% if students %}
+              <br>
+
+              {% for student in students|slice:":1" %}
+              <h3>{{student.student_class}} {{student.section}}</h3>
+              {% endfor %}
+
+              <form>
+            <table id="myTable" border="0" style="border: 0px solid grey; background-color:white; width: 1000px; font-size: 15px" class="table table-borderless bordered vertical_striped tablesorter">
+              <thead>
+                <th style="background-color: #e5e5e5">Roll No.</th>
+                <th>Name</th>
+                <th style="background-color: #e5e5e5">Class</th>
+                <th >Section</th>
+                <th style="background-color: #e5e5e5">Attendence</th>
+                
+              </thead>
+
+			<tbody>
+            {% for form in students %}
+              
+                <tr data-id="{{form.id}}" class='clickable-row' >
+                  <td style="background-color: #e5e5e5">{{form.roll_no}}</td>
+                  <td id="name">{{form.first_name}} &nbsp; {{form.last_name}} </td>
+                  <td style="background-color: #e5e5e5">{{form.student_class}}</td>
+                  <td>{{form.section}}</td>
+                  <td class="status-class" style="background-color: #e5e5e5"> <span class="clickable-col" id="{{form.id}}" style="cursor: pointer;width: 100%;height: 100%;display: block;">P</span></td>
+                </tr> 
+            
+             
+             <!-- <script type="text/javascript">
+             $('#clickable-col').click(function(){
+             	alert('{{form.id}}');
+             	if ($('#{{form.id}}').text() == 'P'){
+      				// document.getElementById('{{form.id}}').innerHTML ='A';
+      				alert('hello');
+      				}
+      				else{
+      				// document.getElementById('{{form.id}}').innerHTML ='P';	
+      				}	 
+             });   	
+      		</script> -->
+      			{% endfor %}
+      		 </tbody>
+      		
+       		</table>
+       		<input type="button" name="submit" id="submit" value="submit">
+       		</form>
+
+       		<script type="text/javascript">
+             	$('span.clickable-col').click(function(){
+             		// alert($(this).text());
+             		if($(this).text() == 'P'){
+             			$(this).text('A');
+             		}
+             		else{
+             			$(this).text('P');	
+             		}
+             	});
+
+                 		$('#submit').click(function(){
+                 			// var select_class_section = $('#id_class').val();
+                 			// var section = select_class_section.slice(-1);
+                 			// var select_class = select_class_section.slice(0,-2);
+                 			// alert('you selected '+select_class + " "+section);
+                 			url = "{% url 'attendence:apply_attendence' %}";
+                 			formData = [];
+
+       //           			var rowCount = $('#myTable tr').length;
+
+       //           			alert(rowCount);
+
+       //           			$('#myTable tr').each(function(){
+							// 	if($(this).is(":checked")) {
+							// 		ids.push($(this).attr('data-id'));
+							// 	}
+							// });
+       //           			for (var i = 0; i < rowCount; i++) {
+       //           				// var status = $('span.clickable-col').text();
+                 					
+       //           			}
+                 			var row = document.getElementsByClassName('clickable-row');
+                 			for(i= 0;i<row.length;i++){
+                 			var td = row[i].getElementsByClassName('status-class');
+                 				for(j=0;j<td.length;j++){
+                 					var span = td[j].getElementsByTagName('span');
+                 					// console.log(document.getElementById(span.).innerHTML);
+                 						for(k=0;k<span.length;k++){
+                 							var val = span[k].innerHTML;
+                 							if(val == 'A'){
+                 							formData.push(span[k].id);
+ 		                						
+                 							console.log(span[k].id);
+                 						}
+                 					}
+                 					
+                 				}
+                 				
+                 			}
+                 			console.log(formData);
+	                 		var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+	                        $.ajax({
+	                        type: "post",
+	                        url: url,
+	                        csrftoken:csrftoken,
+	                        data:{
+	                          'formData' : formData,
+	                        },
+	                        success: function(response) {
+	                          console.log(response);
+	                          alert("successfully taken.");
+	                          // location.reload();
+	                          var protocol = window.location.protocol;
+	                          var hostname =window.location.hostname;
+	                          var port = window.location.port;
+	                          window.location.replace(protocol+"//"+hostname+":"+port+"/attendence/take_attendence");
+	                        },
+	                        error: function(response) {
+	                          console.log(response);
+	                          // alert("Make sure you are entering unique data.")
+	                        }
+
+	                      });
+
+                 		});
+             </script>
+       		{% endif %}
+
+
+
+       		
+       		</div>
+       		</div>
+         <script>//this script for filter the searchbox data of list institute form
+             
+             // $(".clickable-row").click(function(){
+             //  var mid = $(this).attr('data-id');
+             //  console.log(mid);
+             //  alert(mid);
+             //  // window.location.href = "{% url 'dashboard:student_profile' id=12 %}";
+             //  // window.location="http://127.0.0.1:8000/dashboard/student/?id";
+//             });
+            </script>
+
+{% endblock %}
