@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://127.0.0.1:8000/manage_hr/salary_structure/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Digimkey</title>
+    
+<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/fonts/Material-Design-Iconic-Font.ttf"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="http://127.0.0.1:8000/media/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="http://127.0.0.1:8000/media/favicon.ico" type="image/x-icon">    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./Digimkey_files/font-awesome.min.css">
+    <link rel="stylesheet" href="./Digimkey_files/pikaday.min.css">
+    <link rel="stylesheet" href="./Digimkey_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./Digimkey_files/styles.css">
+    <!-- JS -->
+    <script src="./Digimkey_files/jquery.min.js"></script>
+    <script src="./Digimkey_files/popper.min.js"></script>
+    <script src="./Digimkey_files/bootstrap.min.js"></script>
+    <script src="./Digimkey_files/moment.min.js"></script>
+    <script src="./Digimkey_files/pikaday.min.js"></script>
+    <script src="./Digimkey_files/custom.js"></script>
+  </head>
+  <body>
+  
+  <script>
+
+  var g_urls = {
+    'login': '/auth/rest-auth/login/?next=/dashboard/home/',
+    'logout': '/auth/rest-auth/logout/',
+  };
+  </script>
+  <script src="./Digimkey_files/dpy_auth.js"></script>
+
+
+<!-- Left Panel -->
+  <aside id="left-panel" class="left-panel">
+    <nav class="navbar navbar-expand-sm">
+      <div class="navbar-header">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>
+        </button>
+        <a class="navbar-brand" href="http://127.0.0.1:8000/dashboard/home/"><span style="color: #dadada;">DIGIM</span><span style="color: #ea4235;">KEY</span></a>
+        <a class="navbar-brand hidden" href="https://www.digimkey.com/"><span style="color: #dadada;">D</span></a>
+      </div>
+      <div id="main-menu" class="main-menu collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="http://127.0.0.1:8000/dashboard/home/"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+          </li>
+          <h3 class="menu-title">Profile</h3><!-- /.menu-title -->
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Students</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="fa fa-address-card"></i><a href="http://127.0.0.1:8000/dashboard/view_students/">View Student</a></li>
+              <li><i class="fa fa-puzzle-piece"></i><a href="http://127.0.0.1:8000/onboarding/add-student/">Add Student</a></li>
+              <li><i class="fa fa-upload"></i><a href="http://127.0.0.1:8000/dashboard/bulk_upload/">Bulk Upload</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user-circle-o"></i>Teacher</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="fa fa-puzzle-piece"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/tables-basic.html">Add Teacher</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Class</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-puzzle-piece"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/forms-basic.html">Add Class</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-calendar-check-o"></i>Attendence</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-calendar"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/forms-basic.html">View Attendence</a></li>
+              <li><i class="menu-icon fa fa-calendar-plus-o"></i><a href="http://127.0.0.1:8000/attendence/take_attendence/">Take Attendence</a></li>
+            </ul>
+          </li>
+          <h3 class="menu-title">Services</h3><!-- /.menu-title -->
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-money"></i>Fee Management</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-puzzle-piece"></i><a href="http://127.0.0.1:8000/fees_management/add_fee/">Add Fee</a></li>
+              <li><i class="menu-icon fa fa-th"></i><a href="http://127.0.0.1:8000/fees_management/fee_types/">Fee Types</a></li>
+              <li><i class="menu-icon fa fa-puzzle-piece"></i><a href="http://127.0.0.1:8000/fees_management/pay/">Pay</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-briefcase"></i>HR Management</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-user-plus"></i><a href="http://127.0.0.1:8000/manage_hr/">Add Employee</a></li>
+              <li><i class="menu-icon fa fa-users"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/forms-advanced.html">View Employee</a></li>
+              <li><i class="menu-icon fa fa-users"></i><a href="http://127.0.0.1:8000/manage_hr/leave/">apply Leave</a></li>
+              <li><i class="menu-icon fa fa-users"></i><a href="http://127.0.0.1:8000/manage_hr/salary/">Generate Salary slip</a></li>
+              <li><i class="menu-icon fa fa-users"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/">Salary structure</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Admission Management</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-th"></i><a href="http://127.0.0.1:8000/admission_management/enquiry/">Add Enquiry</a></li>
+              <li><i class="menu-icon fa fa-th"></i><a href="http://127.0.0.1:8000/admission_management/view_enquiry/">View Enquiry</a></li>
+              <li><i class="menu-icon fa fa-th"></i><a href="http://127.0.0.1:8000/admission_management/admission/">Admission Enquiry</a></li>
+              <li><i class="menu-icon fa fa-th"></i><a href="http://127.0.0.1:8000/admission_management/view_admission/">View Admission Enquiry</a></li>
+            </ul>
+          </li>
+
+
+          <h3 class="menu-title">Report</h3><!-- /.menu-title -->
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Report 1</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-fort-awesome"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/font-fontawesome.html">View Report 1</a></li>
+            </ul>
+          </li>
+          
+          <h3 class="menu-title">Event</h3><!-- /.menu-title -->
+          <li class="menu-item-has-children dropdown">
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Notifications</a>
+            <ul class="sub-menu children dropdown-menu">
+              <li><i class="menu-icon fa fa-sign-in"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/page-login.html">Login</a></li>
+              <li><i class="menu-icon fa fa-sign-in"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/page-register.html">Register</a></li>
+              <li><i class="menu-icon fa fa-paper-plane"></i><a href="http://127.0.0.1:8000/manage_hr/salary_structure/pages-forget.html">Forget Pass</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </nav>
+  </aside><!-- /#left-panel -->
+  <!-- Left Panel -->
+
+  <!-- Right Panel -->
+  <div id="right-panel" class="right-panel" style="font-family: sans-serif !important">
+    <!-- Header-->
+    
+    <div class="notification" style="z-index: 1000"></div>
+    <script type="text/javascript">
+      $('.overlay').appendTo(".notification");
+    $(document).on('click', '.overlay', function () { $(this).remove(); });
+    </script>
+
+
+    <header id="header" class="header">
+                  <div class="header-menu">
+                  <div id="google_translate_element" class="skiptranslate"></div><script type="text/javascript">
+                    function googleTranslateElementInit() {
+                      new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'bn,en,gu,hi,ml,mr,pa,sd,si,ta,ur', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                    }
+                    </script><script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    <style>
+                       .skiptranslate {
+                        /*font-size: 35px !important;*/
+                        }    
+                    </style>
+        <div class="col-sm-7">
+          <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+          <div class="header-left">
+            <button class="search-trigger"><i class="fa fa-search"></i></button>
+            <div class="form-inline">
+              <form class="search-form">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+              </form>
+            </div>
+            <div class="dropdown for-notification">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bell"></i>
+              <span class="count bg-danger">5</span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="notification">
+                <p class="red">You have 3 Notification</p>
+                <a class="dropdown-item media bg-flat-color-1" href="http://127.0.0.1:8000/manage_hr/salary_structure/#">
+                  <i class="fa fa-check"></i>
+                  <p>Server #1 overloaded.</p>
+                </a>
+                <a class="dropdown-item media bg-flat-color-4" href="http://127.0.0.1:8000/manage_hr/salary_structure/#">
+                  <i class="fa fa-info"></i>
+                  <p>Server #2 overloaded.</p>
+                </a>
+                <a class="dropdown-item media bg-flat-color-5" href="http://127.0.0.1:8000/manage_hr/salary_structure/#">
+                  <i class="fa fa-warning"></i>
+                  <p>Server #3 overloaded.</p>
+                </a>
+              </div>
+            </div>
+            <!-- <div class="dropdown for-message">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="count bg-primary">9</span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="message">
+                  <p class="red">You have 4 Mails</p>
+                  <a class="dropdown-item media bg-flat-color-1" href="#">
+                      <span class="photo media-left"><img alt="avatar" src="/media/emp_default.png"></span>
+                      <div class="message media-body">
+                          <span class="name float-left">Jonathan Smith</span>
+                          <span class="time float-right">Just now</span>
+                          <p>Hello, this is an example msg</p>
+                      </div>
+                  </a>
+                  <a class="dropdown-item media bg-flat-color-4" href="#">
+                      <span class="photo media-left"><img alt="avatar" src="/media/emp_default.png"></span>
+                      <div class="message media-body">
+                          <span class="name float-left">Jack Sanders</span>
+                          <span class="time float-right">5 minutes ago</span>
+                          <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </div>
+                  </a>
+                  <a class="dropdown-item media bg-flat-color-5" href="#">
+                      <span class="photo media-left"><img alt="avatar" src="/media/emp_default.png"></span>
+                      <div class="message media-body">
+                          <span class="name float-left">Cheryl Wheeler</span>
+                          <span class="time float-right">10 minutes ago</span>
+                          <p>Hello, this is an example msg</p>
+                      </div>
+                  </a>
+                  <a class="dropdown-item media bg-flat-color-3" href="#">
+                      <span class="photo media-left"><img alt="avatar" src="/media/emp_default.png"></span>
+                      <div class="message media-body">
+                          <span class="name float-left">Rachel Santos</span>
+                          <span class="time float-right">15 minutes ago</span>
+                          <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </div>
+                  </a>
+              </div>
+            </div> -->
+          </div>
+
+        </div>
+
+        <div class="col-sm-5">
+          <div class="user-area dropdown float-right">
+            <span style="line-height:40px;margin:0 1rem;">abel</span>
+            <a href="http://127.0.0.1:8000/manage_hr/salary_structure/#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img class="user-avatar rounded-circle" src="./Digimkey_files/emp_default.png" alt="User Avatar">
+            </a>
+            <div class="user-menu dropdown-menu">
+              <a class="nav-link" href="http://127.0.0.1:8000/dashboard/profile/"><i class="fa fa-user"></i>My Profile</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa-user"></i>Notifications <span class="count">13</span></a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa fa-bullhorn"></i>Membrship plan</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa fa-credit-card"></i>Validity</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa fa-credit-card-alt"></i>Pay Now</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa fa-comments"></i>FAQ's</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa fa-money"></i>refer &amp; earn </a>
+              <a class="nav-link" href="http://127.0.0.1:8000/dashboard/reset_profile/"><i class="fa fa fa-plug"></i>Reset profile </a>
+              <a class="nav-link" href="http://127.0.0.1:8000/dashboard/feedback/"><i class="fa fa fa-bullhorn"></i>Feedback</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/dashboard/update_password/"><i class="fa fa fa-gears"></i>Change Password</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa-cog"></i>Settings</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa fa-question-circle"></i>Help</a>
+              <a class="nav-link" href="http://127.0.0.1:8000/manage_hr/salary_structure/#"><i class="fa fa fa fa-newspaper-o"></i>About us</a>
+              <a class="nav-link btn-logout" href="http://127.0.0.1:8000/auth/rest-auth/logout/"><i class="fa fa-power-off"></i>Logout</a>
+            </div>
+          </div>
+          <div class="language-select dropdown" id="language-select">
+            <a class="dropdown-toggle" href="http://127.0.0.1:8000/manage_hr/salary_structure/#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+              <i class="flag-icon flag-icon-us"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="language">
+              <div class="dropdown-item">
+                <span class="flag-icon flag-icon-fr"></span>
+              </div>
+              <div class="dropdown-item">
+                <i class="flag-icon flag-icon-es"></i>
+              </div>
+              <div class="dropdown-item">
+                <i class="flag-icon flag-icon-us"></i>
+              </div>
+              <div class="dropdown-item">
+                <i class="flag-icon flag-icon-it"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        function getCookie(c_name) {
+            if (document.cookie.length > 0) {
+              c_start = document.cookie.indexOf(c_name + "=");
+                if (c_start != -1) {
+                  c_start = c_start + c_name.length + 1;
+                  c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+              return unescape(document.cookie.substring(c_start, c_end));
+              }
+            }
+           return "";
+          }
+
+      </script>
+
+    </header>
+    <!-- /header -->
+     
+<link rel="stylesheet" href="./Digimkey_files/hr_style.css">
+<style>
+    .in-feilds {
+        display: inline-grid;
+        margin: 2%;
+    }
+
+    .input {
+        border-bottom: 1px solid #a0a2a2;
+        border-radius: 0 !important;
+        transition: all 0.3s;
+        margin: 1%;
+        width: 157px;
+    }
+
+    .data {
+        padding: 0 !important;
+    }
+
+    .head {
+        background: #ffffff;
+        margin: 2% 0 0 2%;
+        color: #747474;
+        border-radius: 12px 12px 0 0;
+        box-shadow: 2px 9px 63px -21px;
+    }
+
+    .in-data {
+        background: #ffffff;
+        padding: 1% 7%;
+        margin: 2% 0 0 2%;
+        border: 1px solid #a0a89e;
+        box-shadow: 1px 1px 20px -10px;
+    }
+
+    input:focus {
+        border-bottom: 2px solid #06d03b;
+        transition: all 0.3s;
+    }
+</style>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<div class="data-head">
+    <span>Salary Structure</span>
+</div>
+<div class="data">
+    <div class="in-feilds">
+        <span style="display:inline-flex; margin-bottom:2px; font-size: 11px;">Employee</span>
+        <div class="input-feilds" style=" width: 210px; ">
+            <span class="fa-icons">
+                <i class="fas fa-user"></i>
+            </span>
+
+            <select id="employee" class="input">
+                <optgroup>
+                    <option>Select Employee</option>
+                    
+                    <option data-id="1" value="abel">abel</option>
+                    
+                    <option data-id="22" value="pvg">pvg</option>
+                    
+                </optgroup>
+            </select>
+        </div>
+        <div class="block">
+            <div class="head">
+                <span>Earnings</span>
+            </div>
+            <div class="in-data">
+                <div style="display: inline-block;">
+                    <div style=" display: inline-grid; ">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">Basic</span>
+                        <input type="number" id="bs" placeholder="Basic" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">HRA</span>
+                        <input type="number" id="hra" placeholder="HRA" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">TA</span>
+                        <input type="number" id="ta" placeholder="TA" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">DA</span>
+                        <input type="number" id="da" placeholder="DA" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">Bonus</span>
+                        <input type="number" id="bonus" placeholder="Bonus" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">Medical</span>
+                        <input type="number" id="med" placeholder="Medical" class="input">
+                    </div>
+                </div>
+                <div style="display: inline-block;">
+
+
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">Special Allowance</span>
+                        <input type="number" id="spal" placeholder="Special Allowance" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">Others</span>
+                        <input type="number" id="others" placeholder="Others" class="input">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="head">
+                <span>Deduction</span>
+            </div>
+            <div class="in-data">
+                <div style="display: inline-block;">
+                    <div style=" display: inline-grid; ">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">TDS</span>
+                        <input type="number" id="tds" placeholder="TDS" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">Professionla tax</span>
+                        <input type="number" id="pt" placeholder="PT" class="input">
+                    </div>
+                    <div style=" display: inline-grid;">
+                        <span style="display:inline-flex; margin:2px; font-size: 11px;">Provident Fund</span>
+                        <input type="number" id="pf" placeholder="PF" class="input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <input id="save" type="button" value="Save">
+</div>
+<script>
+    var empid, bs, hra, ta, da, med, bonus, spal;
+
+    $("select#employee").change(function () {
+        employee = $("#employee option:selected").val();
+        empid = $("#employee option:selected").attr("data-id");
+        var data = [];
+
+        data.push(empid);
+        $.ajax({
+            url: 'structure/',
+            type: 'POST',
+            headers: { "X-CSRFToken": getCookie("csrftoken") },
+            enctype: "multipart/form-data",
+            data: {
+                'studentData': data,
+            },
+            dataType: 'json',
+            success: function (data) {
+                for(i=0;i<data.length;i++){
+                bs = data[i].basic;
+                hra = data[i].hra;
+                ta = data[i].ta;
+                da = data[i].da;
+                med = data[i].med;
+                bonus = data[i].bonus;
+                spal = data[i].spal;
+                others = data[i].others;
+                tds = data[i].tds;
+                pt = data[i].pt;
+                pf = data[i].pf;
+                console.log(bs, hra, ta, da, med, bonus, spal,others,tds,pt,pf);
+                $('#bs').val(bs);
+                $('#hra').val(hra);
+                $('#ta').val(ta);
+                $('#da').val(da);
+                $('#med').val(med);
+                $('#bonus').val(bonus);
+                $('#spal').val(spal);
+                $('#others').val(others);
+                $('#tds').val(tds);
+                $('#pt').val(pt);
+                $('#pf').val(pf);
+                }
+            }
+        });
+    });
+    var today = new Date();
+    var month = (today.getMonth()+1);
+    var year = today.getFullYear();
+       
+    $('#save').click(function () {
+        var empid,bs, hra, ta, da, med, bonus, spal, others, tds, pt, pf;
+        empid = $("#employee option:selected").attr("data-id");
+        bs = $('#bs').val();
+        hra = $('#hra').val();
+        ta = $('#ta').val();
+        da = $('#da').val();
+        med = $('#med').val();
+        bonus = $('#bonus').val();
+        spal = $('#spal').val();
+        others = $('#others').val();
+        tds = $('#tds').val();
+        pt = $('#pt').val();
+        pf = $('#pf').val();
+       
+        console.log(empid, bs, hra, ta, da, med, bonus, spal, others, tds, pt, pf,month,year);
+        var data = [];
+        data.push(empid, bs, hra, ta, da, med, bonus, spal, others, tds, pt, pf,month,year);
+        console.log(data)
+        if (data == "") {
+            alert("Enter your complete details");
+            $('.notification').append("<div class='overlay'> <div class='close'></div>Please Try again !!</div>");
+        }
+        else {
+            $.ajax({
+                url: 'add_salary_struc/',
+                type: 'POST',
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                enctype: "multipart/form-data",
+                data: {
+                    'studentData': data,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Status) {
+                        $('.notification').append("<div class='overlay green'> <div class='close'></div>Added Successfully!!</div>");
+                    }
+                    else {
+                        $('.notification').append("<div class='overlay'> <div class='close'></div>Please Try again !!</div>");
+                    }
+                }
+            });
+        }
+    });
+
+
+</script> 
+  </div><!-- /#right-panel --></body></html>

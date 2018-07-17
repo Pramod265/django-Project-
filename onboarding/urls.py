@@ -6,4 +6,5 @@ app_name = 'onboarding'
 
 urlpatterns = [
     path('signup/', views.SignUp.as_view(), name="signup"),
+    path('add-student/', views.AddStudent.as_view(), name="addstudent"),
 ]
