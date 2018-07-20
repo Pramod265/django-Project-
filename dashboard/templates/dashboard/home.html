@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Page Heading Start-->
+<div class="breadcrumbs">
+  <div class="breadcrumbs-inner">
+    <div class="row m-0">
+      <div class="col-sm-4">
+        <div class="page-header float-left">
+          <div class="page-title">
+            <h1>Dashboard{{ " - "|add:user_info.institute_info.0.institute.name }}</h1>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-sm-8">
+        <div class="page-header float-right">
+          <div class="page-title">
+            <ol class="breadcrumb text-right">
+              <li><a href="/">Dashboard</a></li>
+              <li class="active">Advanced</li>
+            </ol>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+<!-- Page Heading End-->
+
+<!-- Page Content Goes Here-->
+<div class="content mt-3">
+
+<!-- ####################################################
+          #####     Progress bar ##############################
+          ##################################################### -->
+          <style type="text/css">
+            div#status {
+                  margin: 2%;
+              }
+              
+              #myProgress {
+                width: 95%;
+                background-color: #d5daf7;
+                border-radius: /*118px*/;
+                padding: 4px;
+            }
+          </style>
+          <div id="status" style="margin-top: -20px; width:950px;">
+              <h6> Profile Updated
+                <span id="value"> {{count}}</span> % &nbsp;&nbsp;&nbsp;<a href="#" style="color: blue">Update Now</a></h6> 
+                <!-- <div id="myProgress">
+                    <div style="width: 100% background-color:#4caf4f; height: 10px;"> -->
+                    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:{{count}}%">{{count}}%</div>
+                    </div>
+                    
+                    <!-- </div>
+                    </div> -->
+
+                </div>
+                <!-- {{user_info.user.status}} -->
+                     <!-- {% if deactivated_account %}
+                      <h2>acount deactivated</h2>
+                     {% endif %} -->
+
+          {% if count <= 99 %}
+
+                <!-- <span class="input">{{ value }}</span> -->
+                <div class="overlay" style="width: 250px;height: 200px;float: bottom;">
+                        <div class="close">x</div><a href="{% url 'dashboard:profile' %}" style="color: black">Your profile is incomplete please fill it.</a>
+                        <br>
+                        {% if incomplete_students > 0 %}
+                        <a href="{% url 'dashboard:incomplete_student' %}" style="color: black"> Some of the students data is incomplete please fill it.</a>{% endif %}
+                        </div>
+                        <style type="text/css">
+                          .overlay {
+                        background: lightgrey;
+                        padding: 13px;
+                        color:white;
+                        position: fixed;
+                        box-shadow: 1px 12px 43px -5px black;
+                        opacity: 0.48;
+                        z-index: 1000;
+                        border-radius: 9px;    
+                        margin: -41% 3% 3% 3%;
+                        transition: margin 2s ease;
+                        animation: animate 0.8s forwards;
+                        transition-duration: 2s;
+                    }
+
+                  .green{
+                  background:green;
+                  }
+
+                  @keyframes animate {
+                      0%   {opacity: 0.85;margin: -26% 3% 3% 3%;}
+                      
+                      25%  {opacity: 0.89;margin: 1% 3% 3% 3%}
+                      
+                      60%  {opacity: 0.89;margin: 2% 3% 3% 3%}
+                      
+                      100% {opacity: 0.98;margin: 3% 3% 3% 3%}
+                  }
+                        </style>
+                  {% endif %}
+
+          <script type="text/javascript">
+              // myToast('hgfhgfhh',{color:'danger'});
+              move();
+          var maxwidth = $('span#value').html();
+                console.log(maxwidth);
+
+                $('.overlay').appendTo(".notification");
+                // $('.overlay').click(function () {
+                //         $(this).remove();
+                // });
+
+                $(document).on('click', '.overlay', function () { $(this).remove(); });
+                function move() {
+                        var elem = document.getElementById("myBar");
+                        var width = 1;
+                        var id = setInterval(frame, 10);
+                        function frame() {
+                                if (width >= maxwidth) {
+                                        clearInterval(id);
+                                } else {
+                                        width++;
+                                        elem.style.width = width + '%';
+                                }
+                        }
+                }
+
+
+
+          </script>
+
+          <!-- #####################################################################
+          ##########################Conatiner MAin#############################
+          ##################################################################### -->
+        <div id="mainContent">
+                <div>
+                    <script type="text/javascript">
+                  window.onload = function () {
+                    var chart = new CanvasJS.Chart("chartContainer",
+                    {
+                      title:{
+                        text: "Profile Updated"
+                      },
+                      data: [
+                      {
+                       type: "doughnut",
+                       dataPoints: [
+                       {  y: 23.37, indexLabel: "Personal" },
+                       {  y: 15.0, indexLabel: "Institutional" },
+                       {  y: 15, indexLabel: "Parents" },
+                       {  y: 12, indexLabel: "Class" },
+                       {  y: 35, indexLabel: "Incomplete" }
+                       ]
+                     }
+                     ]
+                   });
+
+                    chart.render();
+                  }
+                  </script>
+                  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
+                  <body>
+                    <div id="chartContainer" style="height: 250px; width: 40%;">
+                    </div>
+                    </div>
+
+                    <br><br>
+
+
+                    
+        </div>
+  <!-- <h3>Search Colleges Enter Pincode:</h3> -->
+   <!--  <div class="table">
+
+          <input class="form-control" id="myInput" type="text" style="width: 400px; margin: 10px;border-color: black" placeholder="Search..">
+            <table  border="0" style="border: 0px solid grey; background-color:white; width: 1000px; font-size: 15px" class="table table-bordered  table-hover table-borderless">
+              <thead>
+                <th>Id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>contact</th>
+                <th>board</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>pincode</th> 
+              </thead>
+            {% for form in institutes %}
+              <tbody id="myTable">
+                <tr data-id="{{form.id}}" class='clickable-row' id="">
+                  <td>{{form.id}}</td>
+                  <td id="name">{{form.name}}</td>
+                  <td>{{form.institute_email}}</td>
+                  <td>{{form.contact}}</td>
+                  <td>{{form.board}}</td>
+                  <td>{{form.address}}</td>
+                  <td>{{form.city}}</td>
+                  <td id="pincode">{{form.pin_code}}</td>
+                </tr> 
+             </tbody>
+      
+      {% endfor %}
+        </table>
+
+         <script>//this script for filter the searchbox data of list institute form
+             $(document).ready(function(){
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                      });
+                  });
+             });
+
+             $(".clickable-row").click(function(){
+              var id = $(this).attr('data-id');
+              console.log(id);
+              //window.location="http://127.0.0.1:8000/dashboard/profile/";
+             });
+            </script>
+ -->
+            <!-- <form type="get" action="." style="margin: 10" id="searchform">
+                <input  id="search_box" type="text" name="search_box" placeholder="Search..." >
+                <button id="search_submit" type="submit" >Submit</button>
+            </form>
+            {% if search_colleges != 0 %}
+                
+                {% if search_colleges %}
+                <table border="1px">
+                <thead>
+                <th>Id</th>
+                <th>name</th>
+                <th>email</th>
+                <th>contact</th>
+                <th>board</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>pincode</th> 
+                </thead>  
+                  {% endif %}                 
+               
+                {% for college in search_colleges %}
+                  <tr data-id="{{college.id}}" class='dragbleable-row' id="">
+                  <td>{{college.id}}</td>
+                  <td id="name">{{college.name}}</td>
+                  <td>{{college.institute_email}}</td>
+                  <td>{{college.contact}}</td>
+                  <td>{{college.board}}</td>
+                  <td>{{college.address}}</td>
+                  <td>{{college.city}}</td>
+                  <td id="pincode">{{college.pin_code}}</td>
+                </tr>
+                {% endfor %}
+                
+            {% endif %}
+ -->
+      </div>
+</div>
+ </div>
+<!-- Content End -->
+{% endblock %}
