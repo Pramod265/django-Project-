@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+  
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Email</th>
+            </tr>
+        </thead>
+        {% for form in enquiry %}
+        <tbody id="myTable">
+            <tr data-id="{{form.id}}" class='clickable-row' id="">
+              <td>{{forloop.counter}}</td>
+              <td id="name"><a  style="color: blue" href="">{{form.name}}</a></td>
+              <td>{{form.phone_no}}</td>
+              <td>{{form.email_id}}</td>
+            </tr>
+        </tbody>
+
+        {% endfor %}
+
+      </table>
+      <script>
+      </script>
+    </div>
+  </div>
+
+    
+  
+</div>
+  
+
+{% endblock %}

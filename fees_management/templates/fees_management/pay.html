@@ -1,0 +1,889 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<!-- <link rel="stylesheet" href="{% static 'hr_style.css'%}"> -->
+<style>
+    div#div_classes {
+        padding: 35px;
+        display: flex;
+    }
+
+    .editamount {
+        width: 56%;
+        border-radius: 20px;
+        border: 1px solid #98999b;
+        padding: 4px;
+    }
+
+    .input {
+        margin: 20px;
+        z-index: 99;
+    }
+
+    .select {
+        margin: 20px;
+        z-index: 9999999;
+    }
+
+    select.input {
+        border: 1px solid #aaaaaa;
+        padding: 4px;
+        border-radius: 5px;
+        font-family: Ubuntu;
+        font-weight: 500;
+        background: #fff;
+        color: #99999c;
+    }
+
+    .active {
+        display: grid !important;
+
+    }
+
+    .choices {
+        display: none;
+        overflow: auto;
+        background: #fff;
+        padding: 0 4px;
+        position: absolute;
+        max-height: 66%;
+        box-shadow: 1px 1px 20px -7px;
+    }
+
+    .button {
+        border: 1px solid #aaaaaa;
+        padding: 4px;
+        border-radius: 5px;
+        font-family: Ubuntu;
+        font-weight: 500;
+        background: #fff;
+        color: #99999c;
+    }
+
+    tr,
+    th,
+    td {
+        padding: 4px;
+        border: 1px solid;
+    }
+
+    .data-tab {
+        display: inline-grid;
+        padding: 19px;
+        box-shadow: 1px 1px 20px -10px;
+        margin: 21px;
+        width: 19%;
+    }
+
+    label.radio {
+        padding: 0 15px;
+    }
+
+    .none {
+        display: none;
+    }
+
+    .op-active{
+        background: #6a05ff;
+        color: #fff;
+        font-weight: 700;
+        margin: 4px 0;
+        border-radius: 5px;
+        padding: 3px;
+        box-shadow: 1px 1px 20px -5px #000000;
+    }
+</style>
+
+<link rel="stylesheet" href="http://davidstutz.de/bootstrap-multiselect/dist/css/bootstrap-multiselect.css">
+<script src="http://davidstutz.de/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+    crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="http://wenzhixin.net.cn/p/multiple-select/multiple-select.css" /> -->
+<div style="margin-bottom: -20px">
+    <div class="" style="margin-left: 10px">
+        <a class="btn-floating waves-effect waves-light title-back-btn" onclick="window.history.back();" onmouseover="" style="cursor: pointer;">
+            <img src="/media/icons8-left-64.png" style="height: 45px;width: 45px; margin-bottom:5px;"> </a>
+        <span class="grey-text text-darken-2" style="font-size: 1.64rem;line-height: 52px; margin-left: 50px;">Pay</span>
+    </div>
+
+</div>
+<hr>
+
+<div class="col s12 m12 l12 padding-right-0 " style="padding-bottom:10%;">
+
+    <div class="table">
+        <div class="card lighten-5 card_align_left">
+            <div class="card-content white-text list_view">
+                <div style="display: inline;">
+
+                    <form action="{% url 'fees_management:add_fee' %}" method="post" enctype="multipart/form-data">
+                        <div id="div_classes">
+                                <!-- <select class="custom-select" id="basic" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                               <script>
+                                  $('#basic').multiselect({
+                                        templates: {
+                                            li: '<li><a href="javascript:void(0);"><label class="pl-2"></label></a></li>'
+                                        }
+                                    });
+                               </script> -->
+                                      
+                            <select id="class" class="input">
+                                <option>Select Class</option>
+                                {% for key,value in section_class.items %}
+                                <option class_id="{{value.class_id}}" value="{{value.class_sec}}">{{value.class_sec}}</option>
+                                {% endfor %}
+                            </select>
+
+                            <select id="students" class="input">
+
+                                {% for student in students %}
+                                    {% for user_class in user_classes %}
+                                            {% if user_class.user_id == student.id %}
+                                            {% for one_class in total_classes %}
+                                            {% if one_class.id == user_class.ic_id %}
+                                        <option class="students" data-class="{{one_class}}" student-id="{{student.id}}" value="{{student.first_name}}">{{student.first_name}}</option>
+                                                        {% endif %}
+                                                    {% endfor %}                                  
+                                            {% endif %}
+                                    {% endfor %} 
+                                {% endfor %}
+                            </select>
+
+                            <div class="input select">
+                                <input class="button" type="button" value="Select Fee Type">
+                                <div class="choices">
+                                        {% for fee in fees %}
+                                        <span class="fees"  class-id="{{fee.institute_class_id}}">
+                                            <input class="feeselect" fee_id={{fee.id}} name="{{fee.display_name}}" amount="{{fee.amount}}" 
+                                            {% if fee.cycle == 3 %}
+                                            cycle="Monthly"
+                                            {% elif fee.cycle == 2 %}
+                                            cycle="Half yearly"
+                                            {% elif fee.cycle == 1 %}
+                                            cycle="Annualy"
+                                            {% endif %}
+                                            type="checkbox" cycle_num="{{fee.cycle}}" value="{{fee.fee_type_id}}"/>{{fee.display_name}}</span>
+                                        {% endfor %}
+                                        <span class="none">No fees</span>
+                                </div>
+                            </div>
+                            <div id="send" class="input" style="transform: scale(2.6); margin: 3.8% 0 0 29px;">
+                                <i style="cursor:pointer;" class="fas fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                        <!--    
+                        <input class="button" type="button" id="add" name="submit" value="Add"> -->
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card lighten-5 card_align_left">
+            <div class="card-content white-text list_view">
+                <div id="data">
+
+                </div>
+                <div class='mop' style="display: none;padding: 21px;">
+                    <label class="radio">
+                        <input class="mode cash" type='checkbox' data-name="cash" status='0' data-id="1" value="cash" name="cash" />Cash</label>
+                    <label class="radio">
+                        <input class="mode cheque" type='checkbox' data-name="cheque" status='0' data-id="2" value="cheque" name="cheque" />Cheque</label>
+                    <label class="radio">
+                        <input class="mode bank" type='checkbox' data-name="bank" status='0' data-id="3" value="bank" name="bank" />Bank Deposit</label>
+                    <label class="radio">
+                        <input class="mode ccard" type='checkbox' data-name="card" data-id="4" value="card" name="card" />Credit Card/Debit Card</label>
+                </div>
+                <div class="actions">
+                    <span class="cashamount" style="display:none;">Cash Amount
+                        <span id="cashamount"></span>
+                    </span>
+                    <span class="chequeamount" style="display:none;">Cheque Amount
+                        <input id="chequeamount" type="number" />
+                    </span>
+                    <span class="chequno" style="display:none;">Cheque No
+                        <input id="chequno" type="number"></input>
+                    </span>
+                    <span class="slipno" style="display:none;">Slip no
+                        <input id="slipno" type="number" />
+                    </span>
+                    <span class="cardno" style="display:none;">Card no
+                        <input id="slipno" type="number" />
+                    </span>
+
+                </div>
+                <div style="display:inline-flex;float:  right;">
+                    <div class="total" style="margin: 29px 25px;"></div>
+                    <!-- <div class="update" style="display:none;background: #21d621;margin:28px;color:  #FFF;padding:  6px;">Update</div> -->
+                    <div id="generate" style="cursor:pointer; display:none;background: #01aaea;margin:28px;color:  #FFF;padding:  6px;">Generate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var mop;
+        var mop_name;
+        var recieptid;
+        var student, student_id;
+        var classname;
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+        var total = 0, total1 = 0;
+
+        
+        $(document.body).on('click', '.button', function () {
+            // $('.choices').removeClass('active');
+            $(this).parent().children('.choices').toggleClass("active");
+        });
+        $(document.body).on('click', 'span', function () {
+            if($(this).children('.months').prop('disabled')){
+
+            }
+            else{
+                if($(this).children('.months').prop('checked')){
+                    $(this).children('.months').prop('checked', false);
+                    $(this).children('.months').trigger('click');
+                    $(this).removeClass('op-active');
+                }
+                else{
+                $(this).children('.months').prop('checked', true);
+                $(this).children('.months').trigger('click');
+                $(this).addClass('op-active');
+                }
+            }
+        });
+
+        $(document.body).on('click', 'span.fees', function () {
+    
+            if($(this).children('.feeselect').prop('disabled')){
+
+            }
+            else{
+                if($(this).children('.feeselect').prop('checked')){
+                    $(this).children('.feeselect').prop('checked', false);
+                    $(this).children('.feeselect').trigger('click');
+                    $(this).removeClass('op-active');
+                }
+                else{
+                $(this).children('.feeselect').prop('checked', true);
+                $(this).children('.feeselect').trigger('click');
+                $(this).addClass('op-active');
+                }
+            }
+        });
+        // $(document.body).on('click', '.data-tab', function () { $(this).children().find('.choices').removeClass('active');});
+        $('.multiple').css('width', '20%').val('Select Fee Type');
+        $("select#students").change(function () {
+            student = $("#students option:selected").val();
+            student_id = $("#students option:selected").attr('student-id');
+            console.log(student+" "+student_id);
+        });
+        // $(document.body).on('click', ':not(.select -> *)', function() {
+        //         $('.choices').removeClass("active");
+        // });
+        // $(document).on('focusout', function() {
+        // // $('.choices').hide();
+        // $('.choices').removeClass("active");
+        // });
+
+        $("select#class").change(function () {
+            classname = $("#class option:selected").val();
+            var classid = $("#class option:selected").attr('class_id');
+            console.log(classid);
+            var students = document.getElementsByClassName('students');
+            var fees = document.getElementsByClassName('fees');
+            for (i = 0; i < students.length; i++) {
+                students[i].style.display = "block";
+                var classess = students[i].getAttribute("data-class").replace('th', '');
+                if (classess != classname) {
+                    students[i].style.display = "none";
+                }
+            }
+            for (i = 0; i < fees.length; i++) {
+                fees[i].style.display = "block";
+                var id = fees[i].getAttribute("class-id");
+                if (id != classid) {
+                    fees[i].style.display = "none";
+                }
+            }
+        });
+
+        var today = new Date();
+        var day = today.getDate(), month = today.getMonth() + 1;
+        if (month <= 9) { month = '0' + month }
+        if (day <= 9) { day = '0' + day }
+        var year = today.getFullYear(), aaj = year + '-' + month + '-' + day;
+        if (month >= 6) {
+            var acad_year = year;
+        } else {
+            var acad_year = year - 1;
+        }
+        // var d = new Date();
+        // recieptid = d.getTime()%1000;
+        // console.log(n);
+
+        $('#send').click(function () {
+            $.ajax({
+                url: "{% url 'fees_management:transaction' %}",
+                type: 'POST',
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                enctype: "multipart/form-data",
+                data: {
+                    'data': student_id,
+                },
+                dataType: 'json',
+                success: function (data) {
+                        console.log("data.length "+data.length);
+                        for(i=0;i<data.length;i++){
+                            var fid=data[i].institute_class_fee,cyc = data[i].cycle,slot = data[i].cycle_slot,pamont = data[i].paid_amount
+                            console.log(fid+" "+cyc+" "+slot+" "+pamont);
+                            var datatab = document.getElementsByClassName('data-tab');
+                            var balance=0;
+                            for(h=0;h<datatab.length;h++){1500
+                                amount=0;
+                                months =  datatab[h].getElementsByClassName('months');
+                                edit = datatab[h].getElementsByClassName('editamount');
+                                bal = datatab[h].getElementsByClassName('balance');
+                                counter=0;
+                                for(n=0;n<months.length;n++){  
+                                    monamount = months[n].getAttribute('amount');
+                                    monfeeid =  months[n].getAttribute('fee_id');
+                                    moncycle =  months[n].getAttribute('cycle');
+                                    monslot =  months[n].getAttribute('cycle_slot');
+                                    if(fid==monfeeid && cyc==moncycle && slot==monslot){
+                                        balance=0;
+                                        balance=Math.abs(monamount-pamont);
+                                        console.log("monamount-pamont:"+balance);
+                                        if(balance!=0){
+                                            months[n].setAttribute('amount',balance);
+                                            // node="<span style='color: white;padding: 1px 8px;font-weight: 700;background: #d0180b;border-radius:  12px;'>UnPaid-"+balance+"</span>";
+                                            // html = months[n].parentElement.innerHTML;
+                                            // months[n].parentElement.innerHTML= html+node;
+                                            months[n].parentElement.style.color = "red";
+                                            months[n].setAttribute('unpaid','1');
+                                            bal[0].setAttribute('bal',balance);
+                                            bal[0].innerHTML = "Balance:"+balance;
+                                        }
+                                        if(balance==0){
+                                            months[n].disabled = true;
+                                            // node="<span style='color: white;padding: 1px 8px;font-weight: 700;background: #0bd00b;border-radius:  12px;'>Paid</span>";
+                                            // html = months[n].parentElement.innerHTML;
+                                            // months[n].parentElement.innerHTML= html+node;
+                                            months[n].parentElement.style.color = "green";
+                                        }
+                                    }   
+                                    // edit[0].value = amount;
+                                }
+                            }
+                        }
+                        if (data.Status) {
+                            // $('.notification').append("<div class='overlay green'> <div class='close'></div>Receipt Added Successfully!!</div>");
+                        }
+                        else {
+                            // $('.notification').append("<div class='overlay'> <div class='close'></div>Please Try again !!</div>");
+                        }
+                }
+            });
+            total = 0,
+            $('.choices').removeClass("active");
+            multi = [];
+            multiunpaid = [];
+            $('#generate').css('display', 'block');
+            $('.update').css('display', 'block');
+            $('.mop').css('display', 'block');
+            $('#data').html('');
+            var months = { 1: 'Jan', 2: 'Feb', 3: 'Mar', 4: 'Apr', 5: 'May', 6: 'June', 7: 'July', 8: 'Aug', 9: 'Sep', 10: 'Oct', 11: 'Nov', 12: 'Dec' };
+            var length = Object.keys(months).length + 1;
+            console.log(length);
+            var selectedfees = document.getElementsByClassName('feeselect');
+            for (i = 0; i < selectedfees.length; i++) {
+                cycle = "";
+                if (selectedfees[i].checked) {
+                    var name = selectedfees[i].getAttribute("name");
+                    var amount = selectedfees[i].getAttribute("amount");
+                    var feeid = selectedfees[i].getAttribute("fee_id");
+                    var cycle = selectedfees[i].getAttribute("cycle");
+                    var cycle_num = selectedfees[i].getAttribute("cycle_num");
+                    var card = "<div class='data-tab'>";
+                    card += "<div><h3>" + name + "</h3></div>";
+                    card += "<div> Amount:" + " <input type='text' fee_id='" + feeid + "' class='editamount' status='0' value='" + amount + "'/></div>";
+                    if (cycle_num == "1") {//Annualy
+                        // total1+=parseInt(amount);
+                        console.log("name:" + name + " " + "amount:" + amount + " " + "cycle:Annualy");
+                        // console.log("name:" + name + " " + "amount:" + amount + " " + "cycle:" + cycle+ " " + "cycle_num:" + cycle_num);     
+                        card += "<div>Cycle:" + " " + cycle + "</div>";
+                        card += "<span ><input class='months' unpaid='0' type='checkbox' status='0' fee_id='" + feeid + "' cycle_slot='1' cycle='" + cycle_num + "' name='" + name + "' value='Annual' amount='" + amount + "'>Annually</span>";
+                        // multi.push([name,amount,cycle_num,cycle,feeid])
+                    }
+                    else if (cycle_num == '2') {//Half Yearly
+                        //total1+=2*parseInt(amount);
+                        console.log("name:" + name + " " + "amount:" + amount + " " + "cycle:Half Yearly");
+                        card += "<div>Cycle" + " " + cycle + "</div>";
+                        card += "<div class='select'>";
+                        card += "<input class='button' type='button' value='Select Month'/>";
+                        card += "<div class='choices'>";
+                        for (z = 1; z <= 2; z++) {
+                            card += "<span ><input class='months' unpaid='0' type='checkbox' status='0' fee_id='" + feeid + "' cycle_slot='" + z + "' cycle='" + cycle_num + "' name='" + name + "' value='SEM" + z + "' amount='" + amount + "'>SEM" + z + "</span>";
+                        }
+                        card += "</div>";
+                        card += "</div>";
+                    }
+                    else if (cycle_num == '3') {//Monthly
+                        console.log("name:" + name + " " + "amount:" + amount + " " + "cycle:Monthly");
+                        console.log("Length:" + length);
+                        card += "<div>Cycle:" + " " + cycle + "</div>";
+                        card += "<div class='select'>";
+                        card += "<input class='button' type='button' value='Select Month'/>";
+                        card += "<div class='choices'>";
+                        for (j = 1; j < 12; j++) {
+                            card += "<span ><input class='months' unpaid='0' type='checkbox' status='0' fee_id='" + feeid + "' name='" + name + "' cycle='" + cycle_num + "' cycle_slot='" + j + "' amount='" + amount + "' value='" + months[j] + year + " '>" + months[j] + " " + year + "</span>";
+                        }
+                        card += "</div>";
+                        card += "</div>";
+                    }
+                    else if (cycle_num == '4') {//Quartely
+                        console.log("name:" + name + " " + "amount:" + amount + " " + "cycle:Quartely");
+                        console.log("Length:" + length);
+                        card += "<div>Cycle:" + " " + cycle + "</div>";
+                        card += "<div class='select'>";
+                        card += "<input class='button' type='button' value='Select Month'/>";
+                        card += "<div class='choices'>";
+                        for (j = 1; j < 12; j++) {
+                            card += "<span ><input class='months' unpaid='0' type='checkbox' status='0' fee_id='" + feeid + "' name='" + name + "' cycle='" + cycle_num + "' cycle_slot='" + j + "' amount='" + amount + "' value='" + months[j] + year + " '>" + months[j] + " " + year + "</span>";
+                        }
+                        card += "</div>";
+                        card += "</div>";
+                    }
+                    card += "<span id='balance' class='balance' style='color:red;'></span></div>";
+
+                    $('#data').append(card);
+                }
+            }
+            function change(){
+                var datatab = document.getElementsByClassName('data-tab');
+                    for(h=0;h<datatab.length;h++){
+                      var balance=0;
+                      months =  datatab[h].getElementsByClassName('months');
+                      edit = datatab[h].getElementsByClassName('editamount');
+                      bal = datatab[h].getElementsByClassName('balance');
+                      counter=0;
+                        for(n=0;n<months.length;n++){
+                            status = months[n].getAttribute('status');  
+                            if(months[n].checked){
+                                counter++;
+                            };
+                        }
+                        if(counter>0){
+                            // amount+=parseInt(edit[0].value);
+                            // total=amount;
+                            if(edit[0].getAttribute('status')==1){
+                                amount+=parseInt(edit[0].value);
+                                months =  datatab[h].getElementsByClassName('months');
+                                console.log(months);
+                                amt=0;
+                                balance =0;
+                                var valuepair= [];
+                                for(e=0;e<months.length;e++){ 
+                                    if(months[e].checked){
+                                        cycslot = months[e].getAttribute('cycle_slot');
+                                        valuepair.push([e,cycslot]);
+                                        amt+=parseInt(months[e].getAttribute('amount'));
+                                        balance=amt-parseInt(edit[0].value); 
+                                        console.log("Amount:"+amt+" "+"Balance:"+balance+"editvalue:"+ parseInt(edit[0].value));
+                                        if(balance!=0 && balance>0){
+                                            bal[0].setAttribute('bal',balance);
+                                            bal[0].innerHTML = "Balance:"+balance;
+                                        }
+                                        if(balance<0){
+                                            bal[0].innerHTML = "Payable amount cannot be more than "+" "+amt;
+                                        }
+                                        // total=amount;
+                                    };
+                                 }
+                                 console.log(valuepair);
+                                 var x=0;
+                                 var number=0,calcamount=0,lastamount=0;
+                                 for(a=0;a<Object.keys(valuepair).length;a++){
+                                    cycslot1 = valuepair[a][1];
+                                    if(cycslot1>x){
+                                        number=valuepair[a][0];
+                                        x=cycslot1;
+                                    }
+                                 }
+                                 lastamount=months[number].getAttribute('amount');
+                                 calcamount= lastamount - balance;
+                                 months[number].setAttribute('amount',calcamount);
+                            }
+                           
+                            if(edit[0].getAttribute('status')==0){
+                                months =  datatab[h].getElementsByClassName('months');
+                                for(d=0;d<months.length;d++){ 
+                                    if(months[d].checked){
+                                        amount+=parseInt(months[d].getAttribute('amount'));
+                                    };
+                                 }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+            }
+
+
+            $('body').on('change', 'input.editamount', function () {
+        
+                $(this).attr('status', '1');
+                value = $(this).val();
+                console.log(value);
+                // total += parseInt(value);
+                feeidedit = (this).getAttribute('fee_id');
+                console.log(feeidedit);
+                amount=0;
+
+                change();
+
+                // var eamount = document.getElementsByClassName('editamount');
+                // console.log(eamount);
+                // for(m=0;m<eamount.length;m++){
+                //     amount+=parseInt(eamount[m].value);
+                //     console.log(amount);
+                // }
+                
+
+                var mon = document.getElementsByClassName('months');
+                for (k = 0; k < mon.length; k++) {
+                    feeid = mon[k].getAttribute('fee_id');
+                    // total=0;
+                    // mon[k].setAttribute('status', '0');
+                    // $(mon[k]).prop('checked', false);
+                    // $('.total').html("<h3>Total:₹0/-</h3>");
+                    if (feeid == feeidedit) {
+                        // mon[k].setAttribute('amount',value);
+                    }
+                }
+                $('.total').html("<h3>Total:₹" + amount + "/-</h3>");
+            });
+            total=0;
+
+            $('body').on('change', 'input:checkbox.months', function () {
+                var counter=0;
+                //multi = [];
+                // amount=0;
+                //change();
+                var datatab = document.getElementsByClassName('data-tab');
+                for(h=0;h<datatab.length;h++){
+                    amount=0;
+                    months =  datatab[h].getElementsByClassName('months');
+                    edit = datatab[h].getElementsByClassName('editamount');
+                    counter=0;
+                    for(n=0;n<months.length;n++){
+                        status = months[n].getAttribute('status');  
+                        if(months[n].checked){
+                            amount+=parseInt(months[n].getAttribute('amount'));
+                            edit[0].value = amount;
+                        };
+                    }
+                }
+                //editpart
+                var mon = document.getElementsByClassName('months');
+                for (k = 0; k < mon.length; k++) {
+
+                    if (mon[k].checked && mon[k].getAttribute('status') == 0) {
+                        total += parseInt(mon[k].getAttribute('amount'));
+                        mon[k].setAttribute('status', '1');
+                        // mon[k].setAttribute('unpaid', '0');
+                        cycle_slot = mon[k].getAttribute('cycle_slot');
+                        value = mon[k].getAttribute('value');
+                        feeid = mon[k].getAttribute('fee_id');
+                        name = mon[k].getAttribute('name');
+                        amount = mon[k].getAttribute('amount');
+                        cycle = mon[k].getAttribute('cycle');
+                        console.log('name:'+name+" "+'amount:'+amount+" "+'cycyle:'+cycle+" "+'value:'+value+'cycle_slot:'+cycle_slot);
+                        // if(mon[k].getAttribute('unpaid')==0){
+                        //     multi.push([name, amount, cycle, value, feeid, cycle_slot]);
+                        // }
+                        // if(mon[k].getAttribute('unpaid')==1){
+                        //     multiunpaid.push([name, amount, cycle, value, feeid, cycle_slot]);
+                        //     console.log("multiunpaid:"+multiunpaid);
+                        // }   
+                        
+                    }
+                    else if (mon[k].getAttribute('status') == 1) {
+
+                        if (mon[k].checked) {
+                            //do nothing
+                        }
+                        else {
+                            total -= parseInt(mon[k].getAttribute('amount'));
+                            mon[k].setAttribute('status', '0');
+                            // mon[k].setAttribute('unpaid', '1');
+                        }
+                    }
+
+                }
+                $('.total').html("<h3>Total:₹" + total + "/-</h3>");
+                //end of edit part 
+            });
+            $('.total').html("<h3>Total:₹" + total + "/-</h3>");
+        });
+
+        $('body').on('click', 'input[type="checkbox"]', function () {
+            var value = this.value;
+            var cash,cheque,bank,card;
+            mop = this.getAttribute('data-id');
+            mop_name = this.getAttribute('data-name');
+            console.log("mop" + mop);
+            var name = this.name;
+            if (this.checked) {
+                if (value == "cash") {
+                    $('.bank').prop('checked', false);
+                    $('.cheque').prop('checked', false);
+                    var html="";
+                    var modes = document.getElementsByClassName('mode');
+                    for(u1=0;u1<modes.length;u1++){
+                        var modename = modes[u1].getAttribute('data-name');
+                        if(modes[u1].checked && modename == 'cheque'){
+                                html += "<input class='mop' id='cash' placeholder='Cash amount' type='text'/>";
+                                html += "<input class='mop' id='chequeno' class='input' placeholder='cheque no' type='text'/>";
+                                html += "<input class='mop' id='chequeamount' placeholder='cheque amount' type='text'/>"; 
+                            }
+                    }
+
+                    $('.actions').html(html);
+                }
+                if (value == "bank") {
+                    $('.cash').prop('checked', false);
+                    $('.cheque').prop('checked', false);
+                    $('.ccard').prop('checked', false);
+                    var html="";
+                    html += "<input class='mop' id='slipno' placeholder='Slip no' type='text'/>";
+                    html += "<input class='mop' id='chequeno' placeholder='cheque no' type='text'/>";
+                    $('.actions').html(html);
+                }
+                if (value == "cheque") {
+                    $('.bank').prop('checked', false);
+                    $('.ccard').prop('checked', false);
+                    // $('.cash').prop('checked', false);
+                    var html="";
+                    html += "<input class='mop' id='chequeno' class='input' placeholder='cheque no' type='text'/>";
+                    
+                    var modes = document.getElementsByClassName('mode');
+                    for(u=0;u<modes.length;u++){
+                        var modename = modes[u].getAttribute('data-name');
+                        if(modes[u].checked && modename == 'cash'){
+                                html += "<input class='mop' id='chequeamount' placeholder='cheque amount' type='text'/>";
+                                html += "<input class='mop' id='cash' placeholder='Cash amount' type='text'/>";
+                        }
+                    }
+                    $('.actions').html(html);
+                }
+                if (value == "card") {
+                    $('.bank').prop('checked', false);
+                    $('.cash').prop('checked', false);
+                    $('.cheque').prop('checked', false);
+                    var html="";
+                    html += "<input class='mop' id='cardamount' placeholder='Amount' type='text'/>";
+                    html += "<input class='mop' id='transcaid' class='input' placeholder='Transaction id' type='text'/>";
+                    $('.actions').html(html);
+                }
+            }
+            else {
+                $('.cash').prop('checked', false);
+                $('.cheque').prop('checked', false);
+                $('.bank').prop('checked', false);
+                $('.ccard').prop('checked', false);
+                $('.actions').html('');
+            }
+        });
+        $('body').on('click', '#generate', function () {
+            var rid;
+            var chequeno='',chequeamount='',slipno='',cardamount='',transcaid='';
+            chequeno = $('#chequeno').val();
+            chequeamount = $('#chequeamount').val();
+            slipno = $('#slipno').val();
+            cardamount = $('#cardamount').val();
+            transcaid = $('#transcaid').val();
+            
+            if(mop == 2){
+                data = [];
+                data.push(total, mop,chequeno);
+                console.log(data);  
+            }
+            else{
+                data = [];
+                data.push(total, mop,chequeno='');
+                console.log(data);  
+            }
+            $.ajax({
+                url: "{% url 'fees_management:reciept' %}",
+                type: 'POST',
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                enctype: "multipart/form-data",
+                data: {
+                    'data': data,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    rid = data.id
+                    console.log("recipt" + rid);
+                    generate(rid);
+                    if (data.Status) {
+                        myToast("Receipt Added Successfully!!",{color:'success'});
+                    }
+                    else {
+                        myToast("Please Try again !!",{color:'danger'});
+                    }
+                }
+            });
+            function generate(rid) {
+                console.log("ReceiptID:" + rid);
+                // {% for i in institute %}
+                var inst_name = "{{i.name}}",inst_add = "{{i.address}}";
+                
+                html = "<div>";
+                html += "<div style='margin: 0 3%;display:  inline-flex;'>"
+                html += "<img src='{{i.logo}}' style='width: 14%;height:  1%;'>";
+                html += "<div style='margin:10px;'>";
+                html += "<div style='font-weight: 700;margin:  0 23%;'> {{i.name}}</div>";
+                html += "<div style='font-weight: 700;font-size: 10px;margin: 0 0%;'>{{i.address}}</div></div>";
+                html += "</div>";
+                html += "<div style=' padding: 2% 37%; font-weight: 700; '>Fee reciept</div>";
+                html += "<div style='font-weight: 700; '> Student Name: " + student + "</div>";
+                html += "<div style='font-weight: 700; '> Class: " + classname + "</div>";
+                html += "<table>";
+                html += "<th>Fee name</th><th>Fee Amount</th><th>Mode of Payment</th><th>Cycle</th>";
+                // {% endfor %}
+                // console.log("multi"+multi);
+                // for (i = 0; i < Object.keys(multi).length; i++) {
+                //     data = [];
+                //   console.log(multi[i]);
+                //     console.log(multi[i][0], multi[i][1], multi[i][2], multi[i][3]);
+                    var tamount=0,feename,feeamount=0 ,bal=0,feecycyle ,feecyclename, feeid, feecycleslot ;
+                    var datatab = document.getElementsByClassName('data-tab');
+                    var bal1 = document.getElementsByClassName('balance');
+                    for(h1=0;h1<datatab.length;h1++){
+                        amount=0;
+                        months =  datatab[h1].getElementsByClassName('months');
+                        edit = datatab[h1].getElementsByClassName('editamount');
+                        counter=0;
+                        for(n1=0;n1<months.length;n1++){
+                            status = months[n1].getAttribute('status');  
+                            if(months[n1].checked){
+                                
+                                feename = months[n1].getAttribute('name');
+                                feeamount = months[n1].getAttribute('amount');
+                                tamount+=parseInt(feeamount);
+                                feecycyle = months[n1].getAttribute('cycle');
+                                feecyclename = months[n1].getAttribute('value');
+                                feeid = months[n1].getAttribute('fee_id');
+                                // bal = ;
+                                feecycleslot = months[n1].getAttribute('cycle_slot');
+                                html += "<tr><td>" + feename + "</td><td>" + feeamount + "</td><td>" + mop_name + "</td><td>" + feecyclename + "</td></tr>";
+                                
+                                
+                                
+                                if(months[n1].getAttribute('unpaid')==0){
+                                    if(months[n1].getAttribute('status')==0){
+                                        bal=0;
+                                    }
+                                    if(months[n1].getAttribute('status')==1){
+                                        bal=0;
+                                        for(l1=0;l1<bal1.length;l1++){
+                                        console.log('attr:'+bal1[l1].getAttribute('bal'));
+                                        if(bal1[l1].getAttribute('bal')>0){
+                                            bal+=parseInt(bal1[l1].getAttribute('bal'));
+                                        }
+                                        // bal+=parseInt(bal1[l1].getAttribute('bal'));
+                                        console.log("bal:"+bal);
+                                        }
+                                        console.log("tbal:"+bal);
+                                    }
+                                    data = [];
+                                    console.log(feename, feeamount, feecycyle, feecycleslot, feeid, mop, rid, feecyclename, student_id);
+                                    data.push(feename, feeamount, feecycyle, feecycleslot, feeid, mop, rid, feecyclename, student_id);
+                                    $.ajax({
+                                    url: "{% url 'fees_management:pay' %}",
+                                    type: 'POST',
+                                    headers: { "X-CSRFToken": getCookie("csrftoken") },
+                                    enctype: "multipart/form-data",
+                                    data: {
+                                        'feeData': data,
+                                    },
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data.Status) {
+                                            myToast("Success !!",{color:'success'});
+                                        }
+                                        else {
+                                            myToast(data.Message,{color:'danger'});
+                                        }
+                                    }
+                                });
+                                }
+                                if(months[n1].getAttribute('unpaid')==1){
+                                    dataunpaid = [];
+                                    if(months[n1].getAttribute('status')==1){
+                                        bal=0;
+                                    }
+                                    if(months[n1].getAttribute('status')==0){
+                                        bal=0;
+                                        for(l=0;l<bal1.length;l++){
+                                        bal+=parseInt(bal1[l].getAttribute('bal'));
+                                        }
+                                    }
+                                    console.log(feename, feeamount, feecycyle, feecycleslot, feeid, mop, rid, feecyclename, student_id);
+                                    dataunpaid.push(feename, feeamount, feecycyle, feecycleslot, feeid, mop, rid, feecyclename, student_id);
+                                    $.ajax({
+                                        url: "{% url 'fees_management:updatetrans' %}",
+                                        type: 'POST',
+                                        headers: { "X-CSRFToken": getCookie("csrftoken") },
+                                        enctype: "multipart/form-data",
+                                        data: {
+                                            'feeData': dataunpaid,
+                                        },
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            if (data.Status) {
+                                                myToast("Success !!",{color:'success'});
+                                            }
+                                            else {
+                                                myToast("Please Try again !!",{color:'danger'});
+                                            }
+                                        }
+                                    });
+                                }   
+                            };
+                        }
+                    }
+                
+                html += "<tr><td colspan='4'><b>Total: " + tamount + "</b></td></tr>";
+                html += "<tr><td colspan='4'><b>Un-paid:"+bal+"</td></tr>";
+                html += "</table>";
+                html += "</div>";
+                $('#reciept').css('display', 'block');
+                $('#blackblur').css('display', 'block');
+                $('#feereciept').html('');
+                $('#feereciept').append(html);
+            }
+
+        });
+        $('body').on('click', '.close', function () {
+            $('#reciept').css('display', 'none');
+            $('#blackblur').css('display', 'none');
+        });
+
+    </script>  {% endblock %}

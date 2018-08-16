@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div style="margin-bottom: -20px">
+	<div class="" style="margin-left: 10px">
+    <a class="btn-floating waves-effect waves-light title-back-btn" onclick="window.history.back();" onmouseover="" style="cursor: pointer;">
+      <img src="/media/icons8-left-64.png" style="height: 45px;width: 45px; margin-bottom:5px;">  </a>
+     <span class="grey-text text-darken-2" style="font-size: 1.64rem;line-height: 52px; margin-left: 50px;">Additional Fields</span>
+    </div>
+  
+</div>
+<hr>
+
+<div class="col s12 m12 l12 padding-right-0 " style="padding-bottom:10%;">
+
+    <div class="table" >
+        <div class="card lighten-5 card_align_left">
+          <div class="card-content white-text list_view">
+                <div style="margin: 20px 20px">
+                    <h4 style="color: rgb(73, 176, 236)">Add additional Details</h4><br>
+                        <span>Additional field are those feilds which are not provided by deafault in student profile.</span>
+                            <br>
+                            <span class="">You can add the additional field like
+                            <b>Seat number,Mother tongue,special quota</b> etc.
+                            <br> Once added these feilds will be displayed in student profile in admin section. </span>
+                            
+                                <br><br>
+                                <input id="field_name" placeholder="Field Name" type="text" style="width: 250px" class="form-control">
+                                <label for="field_type" >Field Type</label>
+                                    <select id="field_type" name="field_type" class="form-control" style="width: 250px;">
+                                        <option value="1">Text</option>
+                                        <option value="2">Numeric</option>
+                                        <option value="3">Date Time</option>
+                                    </select>
+                                <br>
+                                <span style="cursor: pointer; background-color: #49a0ae;font-size: 20px; color: white; padding: 10px 10px;border-radius: 10px 10px ; box-shadow: 2px 1px 2px 1px gray" id="add">
+                                        Add &nbsp;&nbsp;<i class="fa fa-paper-plane-o"></i>
+                                </span>
+                                <br><br>
+                                {% for additional_field in additional_fields %}
+                                    <span style="padding: 5px 5px;background-color: lightgrey; width: auto;max-width: 120px; border-radius: 15px 15px" class="overlay">
+                                        {{additional_field.name}}
+                                        
+                                    </span>
+                                {% endfor %}
+                       </div>
+                </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+            
+        $('#add').click(function (e) {
+        e.preventDefault()
+
+          var url = "{% url 'dashboard:AddAdditionalField' %}", field = {};
+          
+          
+          field[$("#field_type").attr('name')]=$("#field_type option:selected").val();
+          field['name']=$("#field_name").val();
+          field['status']=1;
+          alert('hello');
+          // return;
+          console.log(field);
+      
+      // var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();    
+      var formData = new FormData();
+          formData.append("user",JSON.stringify(field));
+
+          
+      $.ajax({
+        type: "POST",
+        url: url,
+        contentType: false,
+        processData: false,
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+        data: formData,
+       
+        success: function(response) {
+          console.log(response);
+          myToast("<h5>"+response.message+"</h5>", {color: 'success','duration':'4000'});
+          location.relaod();
+        },
+        error: function(response) {
+          console.log(response);
+          var msg = "Oops something went wrong!!!";
+          if (response.responseJSON) {
+            if (response.responseJSON.message){
+                msg = '';
+                $.each(response.responseJSON.message,function(key,value){
+                  msg+='<h6 class="alert-heading text-capitalize font-weight-bold">'+key+':</h6>'+value.join(", ")
+                });
+            }
+          } myToast(msg,{color:'danger'});
+        }
+      });
+    
+  });
+
+
+        </script>
+    </div>
+
+{% endblock %}
